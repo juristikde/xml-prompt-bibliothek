@@ -1,3 +1,10 @@
+danke nachstehend ist die bibliothek seite
+
+hierzu bitte ebenfalls eine sehr gute readme erstellen
+
+wichtig ist hier, dass du noch auf die möglichkeit zum einstellen von prompts gehst; also entweder können personen oder unternehmen einfach selber die dateien nutzen und ihre eigene bibliothek hinterlegen (also wenn sie selber nutzen) oder wenn hierüber prompts hinzugefügt werden wollen per github, dann soll auf jeden fall der prompt sehr umfangreich sein; mindestens 10000 zeichen beim einreichen und darauf geachtet werden dass auch index.json richtig befüllt wird mit metadaten usw. mach schon eine gute anleitung da rein;
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -1128,9 +1135,9 @@
         </div>
       </label>
       <label><span data-i18n="library.user">Anwender</span>
-        <div class="combo" data-combo="anwender" data-scope="desk">
+        <div class="combo" data-combo="audience" data-scope="desk">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="filterAnwender" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="filterAudience" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1139,9 +1146,9 @@
         </div>
       </label>
       <label><span data-i18n="library.goal">Zielsetzung</span>
-        <div class="combo" data-combo="zielsetzung" data-scope="desk">
+        <div class="combo" data-combo="purpose" data-scope="desk">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="filterZiel" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="filterPurpose" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1150,9 +1157,9 @@
         </div>
       </label>
       <label><span data-i18n="library.testedWith">Getestet mit</span>
-        <div class="combo" data-combo="getestetMit" data-scope="desk">
+        <div class="combo" data-combo="testedWith" data-scope="desk">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="filterModell" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="filterTestedWith" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1185,9 +1192,9 @@
               <th scope="col" class="sortable" data-sort="title"><span data-i18n="library.titleCol">Titel</span> <span class="sort-ind"></span></th>
               <th scope="col" data-i18n="library.promptCol">Prompt</th>
               <th scope="col" class="sortable" data-sort="language"><span data-i18n="library.lang">Sprache</span> <span class="sort-ind"></span></th>
-              <th scope="col" class="sortable" data-sort="anwender"><span data-i18n="library.user">Anwender</span> <span class="sort-ind"></span></th>
-              <th scope="col" class="sortable" data-sort="zielsetzung"><span data-i18n="library.goal">Zielsetzung</span> <span class="sort-ind"></span></th>
-              <th scope="col" class="sortable" data-sort="getestetMit"><span data-i18n="library.testedWith">Getestet mit</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="audience"><span data-i18n="library.user">Anwender</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="purpose"><span data-i18n="library.goal">Zielsetzung</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="testedWith"><span data-i18n="library.testedWith">Getestet mit</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="updatedAt"><span data-i18n="library.updated">Aktualisiert</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="autor"><span data-i18n="library.author">Autor</span> <span class="sort-ind"></span></th>
             </tr>
@@ -1247,9 +1254,9 @@
         </div>
       </label>
       <label><span data-i18n="library.user">Anwender</span>
-        <div class="combo" data-combo="anwender" data-scope="mob">
+        <div class="combo" data-combo="audience" data-scope="mob">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="mFilterAnwender" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="mFilterAudience" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1258,9 +1265,9 @@
         </div>
       </label>
       <label><span data-i18n="library.goal">Zielsetzung</span>
-        <div class="combo" data-combo="zielsetzung" data-scope="mob">
+        <div class="combo" data-combo="purpose" data-scope="mob">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="mFilterZiel" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="mFilterPurpose" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1269,9 +1276,9 @@
         </div>
       </label>
       <label><span data-i18n="library.testedWith">Getestet mit</span>
-        <div class="combo" data-combo="getestetMit" data-scope="mob">
+        <div class="combo" data-combo="testedWith" data-scope="mob">
           <div class="combo-row">
-            <input type="text" class="combo-input" id="mFilterModell" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
+            <input type="text" class="combo-input" id="mFilterTestedWith" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
             <div class="combo-sep"></div>
             <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
               <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
@@ -1840,9 +1847,9 @@
         id: String(e.id),
         title: e.title || '',
         symbol: e.symbol || '📄',
-        anwender: e.anwender || '',
-        zielsetzung: e.zielsetzung || '',
-        getestetMit: e.getestetMit || '',
+        audience: e.audience || e.anwender || '',
+        purpose: e.purpose || e.zielsetzung || '',
+        testedWith: e.testedWith || e.getestetMit || '',
         updatedAt: e.updatedAt || '',
         autor: e.autor || '',
         language: String(e.language || e.sprache || '').toLowerCase(),
@@ -2102,7 +2109,7 @@
     if(!qNorm) return true;
     const fields = [
       p.id, p.title, p.language, langLabel(p.language),
-      p.anwender, p.zielsetzung, p.getestetMit, p.autor, p.updatedAt
+      p.audience, p.purpose, p.testedWith, p.autor, p.updatedAt
     ];
     if(p.keywords && p.keywords.length){
       for(let i = 0; i < p.keywords.length; i++) fields.push(p.keywords[i]);
@@ -2118,16 +2125,16 @@
     const q = normalize(document.getElementById('searchQ').value);
     /* Desktop-Felder als Quelle der Wahrheit; Mobile-Sheet spiegelt beim Öffnen */
     const fs = document.getElementById('filterSprache').value.trim();
-    const fa = document.getElementById('filterAnwender').value.trim();
-    const fz = document.getElementById('filterZiel').value.trim();
-    const fm = document.getElementById('filterModell').value.trim();
+    const fa = document.getElementById('filterAudience').value.trim();
+    const fz = document.getElementById('filterPurpose').value.trim();
+    const fm = document.getElementById('filterTestedWith').value.trim();
     const fu = document.getElementById('filterAutor').value.trim();
 
     filtered = allPrompts.filter(p => {
       if(!languageFilterMatch(p.language, fs)) return false;
-      if(!freeMatch(p.anwender, fa)) return false;
-      if(!freeMatch(p.zielsetzung, fz)) return false;
-      if(!freeMatch(p.getestetMit, fm)) return false;
+      if(!freeMatch(p.audience, fa)) return false;
+      if(!freeMatch(p.purpose, fz)) return false;
+      if(!freeMatch(p.testedWith, fm)) return false;
       if(!freeMatch(p.autor, fu)) return false;
       return entryMatchesSearch(p, q);
     });
@@ -2138,17 +2145,17 @@
 
   function syncMobileFiltersFromDesktop(){
     document.getElementById('mFilterSprache').value = document.getElementById('filterSprache').value;
-    document.getElementById('mFilterAnwender').value = document.getElementById('filterAnwender').value;
-    document.getElementById('mFilterZiel').value = document.getElementById('filterZiel').value;
-    document.getElementById('mFilterModell').value = document.getElementById('filterModell').value;
+    document.getElementById('mFilterAudience').value = document.getElementById('filterAudience').value;
+    document.getElementById('mFilterPurpose').value = document.getElementById('filterPurpose').value;
+    document.getElementById('mFilterTestedWith').value = document.getElementById('filterTestedWith').value;
     document.getElementById('mFilterAutor').value = document.getElementById('filterAutor').value;
   }
 
   function syncDesktopFromMobileFilters(){
     document.getElementById('filterSprache').value = document.getElementById('mFilterSprache').value;
-    document.getElementById('filterAnwender').value = document.getElementById('mFilterAnwender').value;
-    document.getElementById('filterZiel').value = document.getElementById('mFilterZiel').value;
-    document.getElementById('filterModell').value = document.getElementById('mFilterModell').value;
+    document.getElementById('filterAudience').value = document.getElementById('mFilterAudience').value;
+    document.getElementById('filterPurpose').value = document.getElementById('mFilterPurpose').value;
+    document.getElementById('filterTestedWith').value = document.getElementById('mFilterTestedWith').value;
     document.getElementById('filterAutor').value = document.getElementById('mFilterAutor').value;
   }
 
@@ -2188,9 +2195,9 @@
       '<td class="cell-title" title="'+escAttr(p.title)+'">'+esc(p.title||'')+'</td>'+
       '<td></td>'+
       '<td title="'+escAttr(p.language)+'">'+esc(langLabel(p.language))+'</td>'+
-      '<td title="'+escAttr(p.anwender)+'">'+esc(p.anwender||'—')+'</td>'+
-      '<td title="'+escAttr(p.zielsetzung)+'">'+esc(p.zielsetzung||'—')+'</td>'+
-      '<td title="'+escAttr(p.getestetMit)+'">'+esc(p.getestetMit||'—')+'</td>'+
+      '<td title="'+escAttr(p.audience)+'">'+esc(p.audience||'—')+'</td>'+
+      '<td title="'+escAttr(p.purpose)+'">'+esc(p.purpose||'—')+'</td>'+
+      '<td title="'+escAttr(p.testedWith)+'">'+esc(p.testedWith||'—')+'</td>'+
       '<td>'+esc(formatDate(p.updatedAt))+'</td>'+
       '<td title="'+escAttr(p.autor)+'">'+esc(p.autor||'—')+'</td>';
     const sym = document.createElement('button');
@@ -2391,9 +2398,9 @@
       '<dl class="meta-grid">'+
       '<dt>'+esc(t('ID', 'library.id'))+'</dt><dd title="'+escAttr(entry.id)+'">'+esc(entry.id)+'</dd>'+
       '<dt>'+esc(t('Sprache', 'library.lang'))+'</dt><dd>'+esc(langLabel(entry.language))+'</dd>'+
-      '<dt>'+esc(t('Anwender', 'library.user'))+'</dt><dd>'+esc(entry.anwender||'—')+'</dd>'+
-      '<dt>'+esc(t('Zielsetzung', 'library.goal'))+'</dt><dd>'+esc(entry.zielsetzung||'—')+'</dd>'+
-      '<dt>'+esc(t('Getestet mit', 'library.testedWith'))+'</dt><dd>'+esc(entry.getestetMit||'—')+'</dd>'+
+      '<dt>'+esc(t('Anwender', 'library.user'))+'</dt><dd>'+esc(entry.audience||'—')+'</dd>'+
+      '<dt>'+esc(t('Zielsetzung', 'library.goal'))+'</dt><dd>'+esc(entry.purpose||'—')+'</dd>'+
+      '<dt>'+esc(t('Getestet mit', 'library.testedWith'))+'</dt><dd>'+esc(entry.testedWith||'—')+'</dd>'+
       '<dt>'+esc(t('Aktualisiert', 'library.updated'))+'</dt><dd>'+esc(formatDate(entry.updatedAt))+'</dd>'+
       '<dt>'+esc(t('Autor', 'library.author'))+'</dt><dd>'+esc(entry.autor||'—')+'</dd>'+
       '</dl>';
@@ -2495,9 +2502,9 @@
   document.getElementById('btnFilterReset').onclick = () => {
     closeComboMenus();
     document.getElementById('mFilterSprache').value = '';
-    document.getElementById('mFilterAnwender').value = '';
-    document.getElementById('mFilterZiel').value = '';
-    document.getElementById('mFilterModell').value = '';
+    document.getElementById('mFilterAudience').value = '';
+    document.getElementById('mFilterPurpose').value = '';
+    document.getElementById('mFilterTestedWith').value = '';
     document.getElementById('mFilterAutor').value = '';
     syncDesktopFromMobileFilters();
     applyFilter();

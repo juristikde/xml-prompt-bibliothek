@@ -34,6 +34,7 @@
     "user": "Beoogde gebruiker",
     "goal": "Doel",
     "outputFormat": "Uitvoerformaat",
+    "phOutputFormat": "bijv. Tekst, PDF…",
     "testedWith": "Getest met",
     "author": "Auteur",
     "updated": "Bijgewerkt",

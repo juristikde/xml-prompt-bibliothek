@@ -34,6 +34,7 @@
     "user": "目标用户",
     "goal": "目的",
     "outputFormat": "输出格式",
+    "phOutputFormat": "例如：文本、PDF…",
     "testedWith": "测试环境",
     "author": "作者",
     "updated": "更新时间",

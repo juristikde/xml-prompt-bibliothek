@@ -34,6 +34,7 @@
     "user": "Цільовий користувач",
     "goal": "Мета",
     "outputFormat": "Формат виводу",
+    "phOutputFormat": "напр. Текст, PDF…",
     "testedWith": "Протестовано з",
     "author": "Автор",
     "updated": "Оновлено",

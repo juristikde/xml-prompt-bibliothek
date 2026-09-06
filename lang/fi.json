@@ -34,6 +34,7 @@
     "user": "Kohdekäyttäjä",
     "goal": "Tarkoitus",
     "outputFormat": "Tulostemuoto",
+    "phOutputFormat": "esim. Teksti, PDF…",
     "testedWith": "Testattu sovelluksella",
     "author": "Tekijä",
     "updated": "Päivitetty",

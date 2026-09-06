@@ -34,6 +34,7 @@
     "user": "Célfelhasználó",
     "goal": "Cél",
     "outputFormat": "Kimeneti formátum",
+    "phOutputFormat": "pl. Szöveg, PDF…",
     "testedWith": "Tesztelve ezzel",
     "author": "Szerző",
     "updated": "Frissítve",

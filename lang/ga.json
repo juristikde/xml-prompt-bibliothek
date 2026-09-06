@@ -34,6 +34,7 @@
     "user": "Úsáideoir beartaithe",
     "goal": "Cuspóir",
     "outputFormat": "Formáid aschuir",
+    "phOutputFormat": "m.sh. Téacs, PDF…",
     "testedWith": "Tástáilte le",
     "author": "Údar",
     "updated": "Nuashonraithe",

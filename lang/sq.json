@@ -34,6 +34,7 @@
     "user": "Përdoruesi i synuar",
     "goal": "Qëllimi",
     "outputFormat": "Formati i daljes",
+    "phOutputFormat": "p.sh. Tekst, PDF…",
     "testedWith": "Testuar me",
     "author": "Autori",
     "updated": "Përditësuar",

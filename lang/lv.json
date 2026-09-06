@@ -34,6 +34,7 @@
     "user": "Paredzētais lietotājs",
     "goal": "Mērķis",
     "outputFormat": "Izvades formāts",
+    "phOutputFormat": "piem., Teksts, PDF…",
     "testedWith": "Testēts ar",
     "author": "Autors",
     "updated": "Atjaunināts",

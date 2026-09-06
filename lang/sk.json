@@ -34,6 +34,7 @@
     "user": "Zamýšľaný používateľ",
     "goal": "Účel",
     "outputFormat": "Výstupný formát",
+    "phOutputFormat": "napr. Text, PDF…",
     "testedWith": "Testované s",
     "author": "Autor",
     "updated": "Aktualizované",

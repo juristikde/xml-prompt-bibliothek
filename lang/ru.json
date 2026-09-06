@@ -34,6 +34,7 @@
     "user": "Целевой пользователь",
     "goal": "Цель",
     "outputFormat": "Формат вывода",
+    "phOutputFormat": "напр. Текст, PDF…",
     "testedWith": "Протестировано с",
     "author": "Автор",
     "updated": "Обновлено",

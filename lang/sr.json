@@ -34,6 +34,7 @@
     "user": "Циљани корисник",
     "goal": "Циљ",
     "outputFormat": "Излазни формат",
+    "phOutputFormat": "нпр. Текст, PDF…",
     "testedWith": "Тестирано са",
     "author": "Аутор",
     "updated": "Ажурирано",

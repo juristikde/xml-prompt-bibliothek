@@ -34,6 +34,7 @@
     "user": "Utilizator vizat",
     "goal": "Scop",
     "outputFormat": "Format de ieșire",
+    "phOutputFormat": "ex. Text, PDF…",
     "testedWith": "Testat cu",
     "author": "Autor",
     "updated": "Actualizat",

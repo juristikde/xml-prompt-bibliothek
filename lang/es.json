@@ -34,6 +34,7 @@
     "user": "Usuario previsto",
     "goal": "Objetivo",
     "outputFormat": "Formato de salida",
+    "phOutputFormat": "p. ej. Texto, PDF…",
     "testedWith": "Probado con",
     "author": "Autor",
     "updated": "Actualizado",

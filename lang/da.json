@@ -34,6 +34,7 @@
     "user": "Tilsigtet bruger",
     "goal": "Formål",
     "outputFormat": "Outputformat",
+    "phOutputFormat": "f.eks. Tekst, PDF…",
     "testedWith": "Testet med",
     "author": "Forfatter",
     "updated": "Opdateret",

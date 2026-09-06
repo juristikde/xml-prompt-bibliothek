@@ -34,6 +34,7 @@
     "user": "المستخدم المستهدف",
     "goal": "الهدف",
     "outputFormat": "تنسيق الإخراج",
+    "phOutputFormat": "مثلاً: نص، PDF…",
     "testedWith": "تم الاختبار باستخدام",
     "author": "المؤلف",
     "updated": "آخر تحديث",

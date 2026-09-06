@@ -34,6 +34,7 @@
     "user": "Sihtkasutaja",
     "goal": "Eesmärk",
     "outputFormat": "Väljundvorming",
+    "phOutputFormat": "nt. Tekst, PDF…",
     "testedWith": "Testitud koos",
     "author": "Autor",
     "updated": "Uuendatud",

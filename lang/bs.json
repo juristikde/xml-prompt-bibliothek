@@ -34,6 +34,7 @@
     "user": "Ciljani korisnik",
     "goal": "Cilj",
     "outputFormat": "Izlazni format",
+    "phOutputFormat": "npr. Tekst, PDF…",
     "testedWith": "Testirano s",
     "author": "Autor",
     "updated": "Ažurirano",

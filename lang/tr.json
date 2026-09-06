@@ -34,6 +34,7 @@
     "user": "Hedef kullanıcı",
     "goal": "Amaç",
     "outputFormat": "Çıktı biçimi",
+    "phOutputFormat": "örn. Metin, PDF…",
     "testedWith": "Test edildi",
     "author": "Yazar",
     "updated": "Güncellendi",

@@ -34,6 +34,7 @@
     "user": "Ciljni uporabnik",
     "goal": "Namen",
     "outputFormat": "Izhodna oblika",
+    "phOutputFormat": "npr. Besedilo, PDF…",
     "testedWith": "Preizkušeno z",
     "author": "Avtor",
     "updated": "Posodobljeno",

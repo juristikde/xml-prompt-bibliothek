@@ -55,7 +55,7 @@ Zwei Nutzungswege:
 ## Features
 
 - **Durchsuchbare Tabelle** (Desktop) und **Karten** (Mobil) mit virtueller Liste bei vielen Einträgen  
-- **Filter:** Freitext + Sprache, Anwender, Zielsetzung, Modell („getestet mit“), Autor (Combo-Felder mit Vorschlägen)  
+- **Filter:** Freitext + Sprache, Anwender, Zielsetzung, Ausgabeformat, Modell („getestet mit“), Autor (Combo-Felder mit Vorschlägen)  
 - **Mehrfach-Sortierung** (Spaltenklick, mit Shift/Ctrl/Cmd weitere Ebenen)  
 - **Prompt-Ansicht** mit Kopieren und optionalem Zeilenumbruch  
 - **ID-Generator** („Adresse“) im Navi-Stil für neue Einträge  
@@ -125,6 +125,7 @@ Zwei Formen werden akzeptiert:
       "language": "de",
       "audience": "Support-Teams",
       "purpose": "Freundliche, regelkonforme Kundenantworten",
+      "outputFormat": "Text",
       "testedWith": "GPT-4o, Claude 3.5",
       "updatedAt": "2026-03-15",
       "autor": "Max Mustermann",
@@ -143,13 +144,16 @@ oder ein reines Array `[ { … }, { … } ]`.
 | `language` / `sprache` | empfohlen | ISO-639-1 (`de`, `en`, …) – Filter & Labels |
 | `audience` | optional | Zielgruppe (z. B. “Support”, “Legal team”) |
 | `purpose` | optional | Wofür der Prompt gedacht ist |
+| `outputFormat` | optional | Erwartetes Ausgabeformat (z. B. `Text`, `Python Skript`, `Javascript`, `Bild`, `PDF`) |
 | `testedWith` | optional | Modelle / Umgebungen, mit denen getestet wurde |
 | `updatedAt` | empfohlen | `YYYY-MM-DD` |
 | `autor` | optional | Urheber oder Team |
 | `keywords` / `schlagworte` | optional | Array oder kommaseparierter String – fließt in die Suche |
 | `symbol` | optional | Emoji/Kurzzeichen (Fallback `📄`) |
 
-Feldnamen sind bewusst **englisch** (international nutzbar). Beim Einlesen werden ältere deutsche Keys (`anwender`, `zielsetzung`, `getestetMit`) noch als Fallback akzeptiert – neue Einträge bitte nur mit den englischen Namen anlegen.
+Feldnamen sind bewusst **englisch** (international nutzbar). Beim Einlesen werden ältere deutsche Keys (`anwender`, `zielsetzung`, `getestetMit`, `ausgabeformat`) noch als Fallback akzeptiert – neue Einträge bitte nur mit den englischen Namen anlegen.
+
+**`outputFormat`:** freier Text, empfohlen einheitliche Kurzlabels wie `Text`, `Python Skript`, `Javascript`, `Bild`, `PDF` (Filter und Sortierung nutzen den exakten Wert bzw. Teilstring).
 
 Es gibt **keinen** Prompt-Volltext in `index.json` – der bleibt in der Einzeldatei. So bleibt der Katalog schlank und die virtuelle Liste schnell.
 
@@ -192,7 +196,7 @@ Für private oder Unternehmens-Bibliotheken brauchst du **keinen** Pull Request 
 Empfehlungen intern:
 
 - Einheitliche `language`-Codes und `updatedAt`  
-- `testedWith` und `purpose` pflegen – erleichtert Filter und Onboarding  
+- `testedWith`, `purpose` und `outputFormat` pflegen – erleichtert Filter und Onboarding  
 - Keine Secrets in Prompt-Texten (API-Keys, interne URLs, personenbezogene Daten)  
 - Versionierung über Git; bei Bedarf Review-Prozess im eigenen Repo  
 
@@ -249,6 +253,7 @@ Kürzere Entwürfe bitte nicht als PR an die Hauptbibliothek – nutze dafür ei
   "language": "de",
   "audience": "Legal Tech / Kanzlei-Recherche",
   "purpose": "Strukturierte Fallaufbereitung mit Quellenhinweisen und klarer Trennung von Fakt und Bewertung",
+  "outputFormat": "Text",
   "testedWith": "Claude 3.5 Sonnet, GPT-4o",
   "updatedAt": "2026-09-06",
   "autor": "Dein Name oder Handle",

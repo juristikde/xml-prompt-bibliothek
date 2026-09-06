@@ -196,7 +196,8 @@
   .options-wrap { position: relative; display: inline-block; }
   .options-menu {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     background: var(--paper-raised);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -221,12 +222,36 @@
     font-weight: 500;
     color: var(--ink);
     cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
+  }
+  .options-menu .opt-item:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .options-menu .opt-sep {
+    height: 1px;
+    background: var(--line);
+    margin: var(--space-1) var(--space-2);
+  }
+  .options-menu .opt-label {
+    display: block;
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: var(--space-2) var(--space-3) var(--space-1);
   }
   @media (hover: hover) and (pointer: fine) {
-    .options-menu .opt-item:hover { background: var(--color-action-soft); color: var(--color-action); }
+    .options-menu .opt-item:hover:not(:disabled) {
+      background: var(--color-action-soft);
+      color: var(--color-action);
+    }
   }
   .options-menu .opt-item:focus-visible {
     outline: 2px solid var(--color-action);
@@ -1102,7 +1127,7 @@
           <div class="options-menu" id="optionsMenu" role="menu">
             <button type="button" class="opt-item" id="optLanguage" role="menuitem" data-i18n="toolbar.language">Sprache</button>
             <button type="button" class="opt-item" id="optGenId" role="menuitem" data-i18n="library.genId">ID generieren</button>
-            <a class="opt-item" href="https://juristikde.github.io/xml-prompt-baukasten/" id="optEditor" role="menuitem" data-i18n="library.editor" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:block;box-sizing:border-box;">Editor</a>
+            <a class="opt-item" href="https://juristikde.github.io/xml-prompt-baukasten/" id="optEditor" role="menuitem" data-i18n="library.editor" target="_blank" rel="noopener noreferrer">Editor</a>
           </div>
         </div>
       </div>
@@ -2462,16 +2487,36 @@
     }
   }
 
-  function positionMenu(anchor, menu){
-    const r = anchor.getBoundingClientRect();
-    menu.style.top = (r.bottom + 6) + 'px';
-    menu.style.left = Math.min(r.left, window.innerWidth - 240) + 'px';
+  function positionMenu(btn, menu){
+    if(menu.parentElement !== document.body){
+      document.body.appendChild(menu);
+    }
+    menu.style.visibility = 'hidden';
+    menu.classList.add('open');
+    const rect = btn.getBoundingClientRect();
+    const mh = menu.offsetHeight || 180;
+    const mw = menu.offsetWidth || 220;
+    let left = Math.min(rect.left, window.innerWidth - mw - 8);
+    left = Math.max(8, left);
+    let top = rect.bottom + 6;
+    if(top + mh > window.innerHeight - 8){
+      top = rect.top - mh - 6;
+    }
+    if(top < 8) top = 8;
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
+    menu.style.visibility = '';
   }
 
   function closeOptionsMenu(){
     const menu = document.getElementById('optionsMenu');
     const btn = document.getElementById('btnOptions');
-    if(menu) menu.classList.remove('open');
+    if(menu){
+      menu.classList.remove('open');
+      menu.style.left = '';
+      menu.style.top = '';
+      menu.style.visibility = '';
+    }
     if(btn) btn.setAttribute('aria-expanded', 'false');
     openOptionsMenu = null;
   }
@@ -2557,7 +2602,6 @@
     closeOptionsMenu();
     if(!isOpen){
       positionMenu(btn, menu);
-      menu.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
       openOptionsMenu = menu;
       updateLanguageButton();

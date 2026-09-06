@@ -33,6 +33,7 @@
     "lang": "Language",
     "user": "Intended user",
     "goal": "Purpose",
+    "outputFormat": "Output format",
     "testedWith": "Tested with",
     "author": "Author",
     "updated": "Updated",

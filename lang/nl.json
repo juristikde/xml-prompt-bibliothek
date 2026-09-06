@@ -33,6 +33,7 @@
     "lang": "Taal",
     "user": "Beoogde gebruiker",
     "goal": "Doel",
+    "outputFormat": "Uitvoerformaat",
     "testedWith": "Getest met",
     "author": "Auteur",
     "updated": "Bijgewerkt",

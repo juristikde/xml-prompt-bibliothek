@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "code": "nl",
+    "name": "Nederlands",
+    "dir": "ltr"
+  },
+  "app": {
+    "documentTitle": "Promptbibliotheek",
+    "title": "Promptbibliotheek"
+  },
+  "toolbar": {
+    "options": "Opties",
+    "language": "Taal"
+  },
+  "language": {
+    "title": "Taal",
+    "close": "Taalmenu sluiten",
+    "searchPlaceholder": "Taal zoeken…",
+    "searchAria": "Taal zoeken",
+    "empty": "Geen taal gevonden.",
+    "selected": "Geselecteerd"
+  },
+  "library": {
+    "documentTitle": "Promptbibliotheek",
+    "title": "Promptbibliotheek",
+    "genId": "ID genereren",
+    "editor": "Editor",
+    "searchPlaceholder": "Zoeken…",
+    "searchAria": "Volledige-tekstzoekopdracht",
+    "filter": "Filters",
+    "filterOff": "Filters verbergen",
+    "filterAll": "Alle",
+    "lang": "Taal",
+    "user": "Beoogde gebruiker",
+    "goal": "Doel",
+    "testedWith": "Getest met",
+    "author": "Auteur",
+    "updated": "Bijgewerkt",
+    "id": "ID",
+    "promptCol": "Prompt",
+    "titleCol": "Titel",
+    "entries": "{n} items",
+    "entryOne": "{n} item",
+    "empty": "Geen resultaten.",
+    "more": "Meer",
+    "details": "Details",
+    "showPrompt": "Prompt tonen",
+    "showPromptTitle": "Prompt tonen",
+    "copy": "Kopiëren",
+    "copied": "✓ Gekopieerd",
+    "close": "Sluiten",
+    "loading": "Laden…",
+    "missingPrompt": "Geen prompttekst gevonden (bestand prompts/{id}.json ontbreekt of is leeg).",
+    "newId": "Nieuwe ID",
+    "copyId": "ID kopiëren",
+    "regenId": "Opnieuw genereren",
+    "idLabel": "(Gegenereerde ID)",
+    "idExplain": "Met deze ID kan een item worden aangemaakt: metadata in prompts/index.json, prompttekst in prompts/<id>.json (bestandsnaam = ID). Beide kunnen via een pull request worden voorgesteld.",
+    "naviHints": [
+      "Over 500 meter rechtsaf naar:",
+      "Links aanhouden, daarna:",
+      "Bestemming binnenkort:",
+      "Route herberekend. Bestemming:",
+      "Neem de afslag richting:"
+    ],
+    "wrapOn": "Terugloop aan",
+    "wrapOff": "Terugloop uit",
+    "wrapTitle": "Regelterugloop schakelen",
+    "filterReset": "Resetten",
+    "filterApply": "Toepassen",
+    "phLang": "bijv. Nederlands…",
+    "phUser": "bijv. Ontwikkelaar…",
+    "phGoal": "bijv. Code review…",
+    "phModel": "bijv. GPT-4o…",
+    "phAuthor": "bijv. juristikde…"
+  },
+  "languages": {
+    "ar": {
+      "native": "العربية (Arabic)",
+      "local": "Arabic"
+    },
+    "bg": {
+      "native": "Български (Bulgarian)",
+      "local": "Bulgarian"
+    },
+    "bs": {
+      "native": "Bosanski",
+      "local": "Bosnian"
+    },
+    "cs": {
+      "native": "Čeština",
+      "local": "Czech"
+    },
+    "da": {
+      "native": "Dansk",
+      "local": "Danish"
+    },
+    "de": {
+      "native": "Deutsch",
+      "local": "German"
+    },
+    "el": {
+      "native": "Ελληνικά (Greek)",
+      "local": "Greek"
+    },
+    "en": {
+      "native": "English",
+      "local": "English"
+    },
+    "es": {
+      "native": "Español",
+      "local": "Spanish"
+    },
+    "et": {
+      "native": "Eesti",
+      "local": "Estonian"
+    },
+    "fi": {
+      "native": "Suomi",
+      "local": "Finnish"
+    },
+    "fr": {
+      "native": "Français",
+      "local": "French"
+    },
+    "ga": {
+      "native": "Gaeilge",
+      "local": "Irish"
+    },
+    "hi": {
+      "native": "हिन्दी (Hindi)",
+      "local": "Hindi"
+    },
+    "hr": {
+      "native": "Hrvatski",
+      "local": "Croatian"
+    },
+    "hu": {
+      "native": "Magyar",
+      "local": "Hungarian"
+    },
+    "it": {
+      "native": "Italiano",
+      "local": "Italian"
+    },
+    "ja": {
+      "native": "日本語 (Japanese)",
+      "local": "Japanese"
+    },
+    "ka": {
+      "native": "ქართული (Georgian)",
+      "local": "Georgian"
+    },
+    "ko": {
+      "native": "한국어 (Korean)",
+      "local": "Korean"
+    },
+    "lt": {
+      "native": "Lietuvių",
+      "local": "Lithuanian"
+    },
+    "lv": {
+      "native": "Latviešu",
+      "local": "Latvian"
+    },
+    "mk": {
+      "native": "Македонски (Macedonian)",
+      "local": "Macedonian"
+    },
+    "mo": {
+      "native": "Moldovenească",
+      "local": "Moldovan"
+    },
+    "mt": {
+      "native": "Malti",
+      "local": "Maltese"
+    },
+    "nl": {
+      "native": "Nederlands",
+      "local": "Dutch"
+    },
+    "pl": {
+      "native": "Polski",
+      "local": "Polish"
+    },
+    "pt": {
+      "native": "Português",
+      "local": "Portuguese"
+    },
+    "ro": {
+      "native": "Română",
+      "local": "Romanian"
+    },
+    "ru": {
+      "native": "Русский (Russian)",
+      "local": "Russian"
+    },
+    "sk": {
+      "native": "Slovenčina",
+      "local": "Slovak"
+    },
+    "sl": {
+      "native": "Slovenščina",
+      "local": "Slovenian"
+    },
+    "sq": {
+      "native": "Shqip",
+      "local": "Albanian"
+    },
+    "sr": {
+      "native": "Српски (Serbian)",
+      "local": "Serbian"
+    },
+    "sv": {
+      "native": "Svenska",
+      "local": "Swedish"
+    },
+    "tr": {
+      "native": "Türkçe",
+      "local": "Turkish"
+    },
+    "uk": {
+      "native": "Українська (Ukrainian)",
+      "local": "Ukrainian"
+    },
+    "zh": {
+      "native": "中文 (Chinese)",
+      "local": "Chinese"
+    }
+  },
+  "source": {
+    "wrapOn": "Terugloop aan",
+    "wrapOff": "Terugloop uit",
+    "wrapTitle": "Regelterugloop schakelen"
+  }
+}

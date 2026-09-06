@@ -1,0 +1,15 @@
+{
+  "prompts": [
+    {
+      "id": "glimm-kahl-weg-3-f",
+      "title": "Strukturierter System-Prompt",
+      "symbol": "⚙️",
+      "anwender": "KI-Assistent",
+      "zielsetzung": "Custom Instructions",
+      "getestetMit": "ChatGPT 4o",
+      "updatedAt": "2026-03-12",
+      "autor": "Prompt Baukasten",
+      "language": "de"
+    }
+  ]
+}

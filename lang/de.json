@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "code": "de",
+    "name": "Deutsch",
+    "dir": "ltr"
+  },
+  "app": {
+    "documentTitle": "Prompt Bibliothek",
+    "title": "Prompt Bibliothek"
+  },
+  "toolbar": {
+    "options": "Optionen",
+    "language": "Sprache"
+  },
+  "language": {
+    "title": "Sprache",
+    "close": "Sprachnenü schließen",
+    "searchPlaceholder": "Sprache suchen…",
+    "searchAria": "Sprache suchen",
+    "empty": "Keine Sprache gefunden.",
+    "selected": "Ausgewählt"
+  },
+  "library": {
+    "documentTitle": "Prompt Bibliothek",
+    "title": "Prompt Bibliothek",
+    "genId": "ID generieren",
+    "editor": "Editor",
+    "searchPlaceholder": "Suchen…",
+    "searchAria": "Volltextsuche",
+    "filter": "Filter",
+    "filterOff": "Filter aus",
+    "filterAll": "Alle",
+    "lang": "Sprache",
+    "user": "Anwender",
+    "goal": "Zielsetzung",
+    "testedWith": "Getestet mit",
+    "author": "Autor",
+    "updated": "Aktualisiert",
+    "id": "ID",
+    "promptCol": "Prompt",
+    "titleCol": "Titel",
+    "entries": "{n} Einträge",
+    "entryOne": "{n} Eintrag",
+    "empty": "Keine Treffer.",
+    "more": "Mehr",
+    "details": "Details",
+    "showPrompt": "Prompt anzeigen",
+    "showPromptTitle": "Prompt anzeigen",
+    "copy": "Kopieren",
+    "copied": "✓ Kopiert",
+    "close": "Schließen",
+    "loading": "Lade…",
+    "missingPrompt": "Kein Prompt-Text gefunden (Datei prompts/{id}.json fehlt oder ist leer).",
+    "newId": "Neue ID",
+    "copyId": "ID kopieren",
+    "regenId": "Neu generieren",
+    "idLabel": "(Generierte ID)",
+    "idExplain": "Mit dieser ID kann ein Eintrag angelegt werden: Metadaten in prompts/index.json, Prompt-Text in prompts/<id>.json (Dateiname = ID). Beides per Pull Request vorschlagen.",
+    "naviHints": [
+      "In 500 Meter rechts abbiegen auf:",
+      "Gleich links halten, dann:",
+      "Ziel in Kürze:",
+      "Route neu berechnet. Ziel:",
+      "Abfahrt nehmen Richtung:"
+    ],
+    "wrapOn": "Umbruch an",
+    "wrapOff": "Umbruch aus",
+    "wrapTitle": "Zeilenumbruch umschalten",
+    "filterReset": "Zurücksetzen",
+    "filterApply": "Anwenden",
+    "phLang": "z. B. Deutsch…",
+    "phUser": "z. B. Entwickler…",
+    "phGoal": "z. B. Code-Review…",
+    "phModel": "z. B. GPT-4o…",
+    "phAuthor": "z. B. juristikde…"
+  },
+  "languages": {
+    "ar": {
+      "native": "العربية (Arabisch)",
+      "local": "Arabisch"
+    },
+    "bg": {
+      "native": "Български (Bulgarisch)",
+      "local": "Bulgarisch"
+    },
+    "bs": {
+      "native": "Bosanski",
+      "local": "Bosnisch"
+    },
+    "cs": {
+      "native": "Čeština",
+      "local": "Tschechisch"
+    },
+    "da": {
+      "native": "Dansk",
+      "local": "Dänisch"
+    },
+    "de": {
+      "native": "Deutsch",
+      "local": "Deutsch"
+    },
+    "el": {
+      "native": "Ελληνικά (Griechisch)",
+      "local": "Griechisch"
+    },
+    "en": {
+      "native": "English",
+      "local": "Englisch"
+    },
+    "es": {
+      "native": "Español",
+      "local": "Spanisch"
+    },
+    "et": {
+      "native": "Eesti",
+      "local": "Estnisch"
+    },
+    "fi": {
+      "native": "Suomi",
+      "local": "Finnisch"
+    },
+    "fr": {
+      "native": "Français",
+      "local": "Französisch"
+    },
+    "ga": {
+      "native": "Gaeilge",
+      "local": "Irisch"
+    },
+    "hi": {
+      "native": "हिन्दी (Hindi)",
+      "local": "Hindi"
+    },
+    "hr": {
+      "native": "Hrvatski",
+      "local": "Kroatisch"
+    },
+    "hu": {
+      "native": "Magyar",
+      "local": "Ungarisch"
+    },
+    "it": {
+      "native": "Italiano",
+      "local": "Italienisch"
+    },
+    "ja": {
+      "native": "日本語 (Japanisch)",
+      "local": "Japanisch"
+    },
+    "ka": {
+      "native": "ქართული (Georgisch)",
+      "local": "Georgisch"
+    },
+    "ko": {
+      "native": "한국어 (Koreanisch)",
+      "local": "Koreanisch"
+    },
+    "lt": {
+      "native": "Lietuvių",
+      "local": "Litauisch"
+    },
+    "lv": {
+      "native": "Latviešu",
+      "local": "Lettisch"
+    },
+    "mk": {
+      "native": "Македонски (Mazedonisch)",
+      "local": "Mazedonisch"
+    },
+    "mo": {
+      "native": "Moldovenească",
+      "local": "Moldawisch"
+    },
+    "mt": {
+      "native": "Malti",
+      "local": "Maltesisch"
+    },
+    "nl": {
+      "native": "Nederlands",
+      "local": "Niederländisch"
+    },
+    "pl": {
+      "native": "Polski",
+      "local": "Polnisch"
+    },
+    "pt": {
+      "native": "Português",
+      "local": "Portugiesisch"
+    },
+    "ro": {
+      "native": "Română",
+      "local": "Rumänisch"
+    },
+    "ru": {
+      "native": "Русский (Russisch)",
+      "local": "Russisch"
+    },
+    "sk": {
+      "native": "Slovenčina",
+      "local": "Slowakisch"
+    },
+    "sl": {
+      "native": "Slovenščina",
+      "local": "Slowenisch"
+    },
+    "sq": {
+      "native": "Shqip",
+      "local": "Albanisch"
+    },
+    "sr": {
+      "native": "Српски (Serbisch)",
+      "local": "Serbisch"
+    },
+    "sv": {
+      "native": "Svenska",
+      "local": "Schwedisch"
+    },
+    "tr": {
+      "native": "Türkçe",
+      "local": "Türkisch"
+    },
+    "uk": {
+      "native": "Українська (Ukrainisch)",
+      "local": "Ukrainisch"
+    },
+    "zh": {
+      "native": "中文 (Chinesisch)",
+      "local": "Chinesisch"
+    }
+  },
+  "source": {
+    "wrapOn": "Umbruch an",
+    "wrapOff": "Umbruch aus",
+    "wrapTitle": "Zeilenumbruch umschalten"
+  }
+}

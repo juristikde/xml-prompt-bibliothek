@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "code": "es",
+    "name": "Español",
+    "dir": "ltr"
+  },
+  "app": {
+    "documentTitle": "Biblioteca de prompts",
+    "title": "Biblioteca de prompts"
+  },
+  "toolbar": {
+    "options": "Opciones",
+    "language": "Idioma"
+  },
+  "language": {
+    "title": "Idioma",
+    "close": "Cerrar menú de idioma",
+    "searchPlaceholder": "Buscar idioma…",
+    "searchAria": "Buscar idioma",
+    "empty": "No se encontró ningún idioma.",
+    "selected": "Seleccionado"
+  },
+  "library": {
+    "documentTitle": "Biblioteca de prompts",
+    "title": "Biblioteca de prompts",
+    "genId": "Generar ID",
+    "editor": "Editor",
+    "searchPlaceholder": "Buscar…",
+    "searchAria": "Búsqueda de texto completo",
+    "filter": "Filtros",
+    "filterOff": "Ocultar filtros",
+    "filterAll": "Todos",
+    "lang": "Idioma",
+    "user": "Usuario previsto",
+    "goal": "Objetivo",
+    "testedWith": "Probado con",
+    "author": "Autor",
+    "updated": "Actualizado",
+    "id": "ID",
+    "promptCol": "Prompt",
+    "titleCol": "Título",
+    "entries": "{n} entradas",
+    "entryOne": "{n} entrada",
+    "empty": "Sin resultados.",
+    "more": "Más",
+    "details": "Detalles",
+    "showPrompt": "Mostrar prompt",
+    "showPromptTitle": "Mostrar prompt",
+    "copy": "Copiar",
+    "copied": "✓ Copiado",
+    "close": "Cerrar",
+    "loading": "Cargando…",
+    "missingPrompt": "No se encontró texto del prompt (falta o está vacío prompts/{id}.json).",
+    "newId": "Nuevo ID",
+    "copyId": "Copiar ID",
+    "regenId": "Generar de nuevo",
+    "idLabel": "(ID generado)",
+    "idExplain": "Este ID puede usarse para crear una entrada: metadatos en prompts/index.json, texto del prompt en prompts/<id>.json (nombre de archivo = ID). Ambos pueden proponerse mediante pull request.",
+    "naviHints": [
+      "En 500 metros gire a la derecha hacia:",
+      "Manténgase a la izquierda y luego:",
+      "Destino en breve:",
+      "Ruta recalculada. Destino:",
+      "Tome la salida hacia:"
+    ],
+    "wrapOn": "Ajuste de línea activado",
+    "wrapOff": "Ajuste de línea desactivado",
+    "wrapTitle": "Alternar ajuste de línea",
+    "filterReset": "Restablecer",
+    "filterApply": "Aplicar",
+    "phLang": "p. ej. Español…",
+    "phUser": "p. ej. Desarrollador…",
+    "phGoal": "p. ej. Revisión de código…",
+    "phModel": "p. ej. GPT-4o…",
+    "phAuthor": "p. ej. juristikde…"
+  },
+  "languages": {
+    "ar": {
+      "native": "العربية (Arabic)",
+      "local": "Arabic"
+    },
+    "bg": {
+      "native": "Български (Bulgarian)",
+      "local": "Bulgarian"
+    },
+    "bs": {
+      "native": "Bosanski",
+      "local": "Bosnian"
+    },
+    "cs": {
+      "native": "Čeština",
+      "local": "Czech"
+    },
+    "da": {
+      "native": "Dansk",
+      "local": "Danish"
+    },
+    "de": {
+      "native": "Deutsch",
+      "local": "German"
+    },
+    "el": {
+      "native": "Ελληνικά (Greek)",
+      "local": "Greek"
+    },
+    "en": {
+      "native": "English",
+      "local": "English"
+    },
+    "es": {
+      "native": "Español",
+      "local": "Spanish"
+    },
+    "et": {
+      "native": "Eesti",
+      "local": "Estonian"
+    },
+    "fi": {
+      "native": "Suomi",
+      "local": "Finnish"
+    },
+    "fr": {
+      "native": "Français",
+      "local": "French"
+    },
+    "ga": {
+      "native": "Gaeilge",
+      "local": "Irish"
+    },
+    "hi": {
+      "native": "हिन्दी (Hindi)",
+      "local": "Hindi"
+    },
+    "hr": {
+      "native": "Hrvatski",
+      "local": "Croatian"
+    },
+    "hu": {
+      "native": "Magyar",
+      "local": "Hungarian"
+    },
+    "it": {
+      "native": "Italiano",
+      "local": "Italian"
+    },
+    "ja": {
+      "native": "日本語 (Japanese)",
+      "local": "Japanese"
+    },
+    "ka": {
+      "native": "ქართული (Georgian)",
+      "local": "Georgian"
+    },
+    "ko": {
+      "native": "한국어 (Korean)",
+      "local": "Korean"
+    },
+    "lt": {
+      "native": "Lietuvių",
+      "local": "Lithuanian"
+    },
+    "lv": {
+      "native": "Latviešu",
+      "local": "Latvian"
+    },
+    "mk": {
+      "native": "Македонски (Macedonian)",
+      "local": "Macedonian"
+    },
+    "mo": {
+      "native": "Moldovenească",
+      "local": "Moldovan"
+    },
+    "mt": {
+      "native": "Malti",
+      "local": "Maltese"
+    },
+    "nl": {
+      "native": "Nederlands",
+      "local": "Dutch"
+    },
+    "pl": {
+      "native": "Polski",
+      "local": "Polish"
+    },
+    "pt": {
+      "native": "Português",
+      "local": "Portuguese"
+    },
+    "ro": {
+      "native": "Română",
+      "local": "Romanian"
+    },
+    "ru": {
+      "native": "Русский (Russian)",
+      "local": "Russian"
+    },
+    "sk": {
+      "native": "Slovenčina",
+      "local": "Slovak"
+    },
+    "sl": {
+      "native": "Slovenščina",
+      "local": "Slovenian"
+    },
+    "sq": {
+      "native": "Shqip",
+      "local": "Albanian"
+    },
+    "sr": {
+      "native": "Српски (Serbian)",
+      "local": "Serbian"
+    },
+    "sv": {
+      "native": "Svenska",
+      "local": "Swedish"
+    },
+    "tr": {
+      "native": "Türkçe",
+      "local": "Turkish"
+    },
+    "uk": {
+      "native": "Українська (Ukrainian)",
+      "local": "Ukrainian"
+    },
+    "zh": {
+      "native": "中文 (Chinese)",
+      "local": "Chinese"
+    }
+  },
+  "source": {
+    "wrapOn": "Ajuste de línea activado",
+    "wrapOff": "Ajuste de línea desactivado",
+    "wrapTitle": "Alternar ajuste de línea"
+  }
+}

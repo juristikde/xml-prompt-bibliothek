@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- ========= FAVICON ========= -->
+<link rel="icon" href="https://raw.githubusercontent.com/juristikde/design/main/website/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/juristikde/design/main/website/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/juristikde/design/main/website/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="https://raw.githubusercontent.com/juristikde/design/main/website/icons/favicon-48x48.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/juristikde/design/main/website/icons/apple-touch-icon.png">
+<link rel="manifest" href="https://raw.githubusercontent.com/juristikde/design/main/website/site.webmanifest">
+<meta name="theme-color" content="#faf9f5">
+<title>Prompt Bibliothek</title>
+<!--
+  =============================================================================
+  KI-HINWEIS / AI INSTRUCTION – IMMER BEACHTEN
+  =============================================================================
+  Diese Seite nutzt i18n wie der Prompt Baukasten. UI-Texte in /lang/*.json
+  (ISO 639-1). Bei Änderungen: library.*-Keys in lang/*.json pflegen.
+  Niemals Katalog-Einträge / Prompt-Inhalte übersetzen – nur UI-Chrome.
+  URL: setLanguage=de (erster Hash-Parameter; Fallback System, sonst de).
+  =============================================================================
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  /*
+   * HOVER-REGEL: :hover nur in @media (hover: hover) and (pointer: fine)
+   * i18n-LAYOUT-REGEL: deutsches Layout = Referenz; Truncation mit …
+   * Design analog Prompt Baukasten / Apple HIG
+   * Mobile-Sheets: Prompt von links (wie XML-Code), Metadaten von rechts (wie Detail),
+   * Filter von unten – gleiche Animation/Höhe/Liste-Verhalten wie Referenz.
+   */
+
+  :root {
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --text-caption: 0.75rem; --text-footnote: 0.8125rem; --text-subhead: 0.9375rem;
+    --text-body: 1.0625rem; --text-headline: 1.125rem; --text-title-3: 1.25rem;
+    --text-title-2: 1.375rem; --text-title-1: 1.75rem;
+    --paper: #f1efe9; --paper-raised: #faf9f5; --paper-sunken: #f7f5ef;
+    --ink: #26313f; --ink-soft: #5b6472; --ink-faint: #9aa1ac;
+    --line: #dcd7cb; --line-strong: #c9c3b5;
+    --color-action: #33415c; --color-action-hover: #3c4c6b; --color-action-soft: #e6e9ef;
+    --color-success: #54704f; --color-success-soft: #e6ebe2;
+    --color-warning: #8a6323; --color-warning-soft: #f1e7d2;
+    --color-destructive: #a8442f; --color-destructive-soft: #f3e0da;
+    --color-muted: #5c6773; --color-muted-soft: #e6e8ea;
+    --radius: 10px; --radius-sm: 6px; --radius-lg: 14px;
+    --shadow: 0 1px 2px rgba(38,49,63,.06), 0 6px 20px -10px rgba(38,49,63,.15);
+    --shadow-raised: 0 4px 16px -4px rgba(38,49,63,.12);
+    --touch-min: 44px;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.35;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  .wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-4);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: var(--space-3);
+  }
+
+  header.top {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+    flex: none;
+    min-width: 0;
+  }
+  header.top .title-block {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+  }
+  header.top .title-block h1 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: var(--text-title-2);
+    margin: 0;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    line-height: 1.2;
+    min-width: 0;
+    max-width: 100%;
+  }
+  header.top .title-block h1 .mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex: none;
+  }
+  header.top .title-block h1 .mark picture,
+  header.top .title-block h1 .mark img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  header.top .title-block h1 .title-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+    flex: 0 0 auto;
+  }
+  .toolbar-desktop { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .toolbar-mobile { display: none; }
+
+  button { font-family: inherit; cursor: pointer; }
+  .btn {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    color: var(--ink);
+    min-height: var(--touch-min);
+    min-width: var(--touch-min);
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-subhead);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    transition: border-color 0.12s ease, background 0.12s ease, transform 0.08s ease, opacity 0.12s ease;
+    white-space: nowrap;
+    line-height: 1.25;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12rem;
+  }
+  .btn:focus-visible { outline: 2px solid var(--color-action); outline-offset: 2px; }
+  .btn:active:not(:disabled) { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn.primary {
+    background: var(--color-action);
+    border-color: var(--color-action);
+    color: #fbf9f4;
+  }
+  .btn.small {
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0 var(--space-3);
+    font-size: var(--text-footnote);
+  }
+  .btn.icon-only { padding: 0; width: var(--touch-min); max-width: none; }
+  .btn.block { width: 100%; max-width: none; }
+  .toolbar-desktop .btn:not(.icon-only),
+  .toolbar-mobile .btn:not(.icon-only) { max-width: 10.5rem; }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover:not(:disabled) { border-color: var(--ink-faint); background: #fff; }
+    .btn.primary:hover:not(:disabled) {
+      background: var(--color-action-hover);
+      border-color: var(--color-action-hover);
+    }
+  }
+
+  .options-wrap { position: relative; display: inline-block; }
+  .options-menu {
+    position: fixed;
+    top: 0; left: 0;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-raised);
+    padding: var(--space-2);
+    z-index: 10000;
+    min-width: 220px;
+    display: none;
+  }
+  .options-menu.open { display: block; }
+  .options-menu .opt-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    min-height: 40px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .options-menu .opt-item:hover { background: var(--color-action-soft); color: var(--color-action); }
+  }
+  .options-menu .opt-item:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: -2px;
+  }
+
+  /* ===== Suche / Filter (Desktop: Inline; Mobile: Bottom-Sheet) ===== */
+  .search-panel {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: var(--space-3);
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .search-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-row input[type="search"] {
+    flex: 1 1 180px;
+    min-width: 140px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-3);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    min-height: 40px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .search-row input:focus {
+    outline: 2px solid var(--color-action);
+    outline-offset: 0;
+    border-color: var(--color-action);
+  }
+
+  .search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: flex-end;
+  }
+  .search-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--ink-soft);
+    min-width: 0;
+  }
+  .search-meta {
+    font-size: var(--text-caption);
+    color: var(--ink-faint);
+  }
+
+  /* Combo: Freitext + Caret (wie split-btn / Beispiel im Baukasten) */
+  .combo {
+    position: relative;
+    min-width: 140px;
+    max-width: 180px;
+    width: 100%;
+  }
+  .filter-sheet-fields .combo {
+    min-width: 0;
+    max-width: none;
+  }
+  .combo-row {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    overflow: hidden;
+    min-height: 40px;
+  }
+  .filter-sheet-fields .combo-row { min-height: var(--touch-min); }
+  .combo-row:focus-within {
+    outline: 2px solid var(--color-action);
+    outline-offset: 0;
+    border-color: var(--color-action);
+  }
+  .combo-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 0 var(--space-3);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    color: var(--ink);
+    min-height: 38px;
+  }
+  .filter-sheet-fields .combo-input { min-height: calc(var(--touch-min) - 2px); }
+  .combo-input:focus { outline: none; }
+  .combo-sep {
+    width: 1px;
+    background: var(--line);
+    flex: none;
+  }
+  .combo-caret {
+    appearance: none;
+    border: none;
+    background: transparent;
+    min-width: 36px;
+    padding: 0 var(--space-2);
+    cursor: pointer;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .combo-caret svg { width: 12px; height: 12px; }
+  @media (hover: hover) and (pointer: fine) {
+    .combo-caret:hover { background: var(--color-muted-soft); color: var(--ink); }
+  }
+  .combo-caret:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: -2px;
+  }
+  .combo-menu {
+    position: fixed;
+    z-index: 11000;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-raised);
+    padding: var(--space-1);
+    min-width: 160px;
+    max-width: min(320px, calc(100vw - 24px));
+    /* Apple HIG: Menüs kompakt; ~8 Zeilen, danach scrollen */
+    max-height: min(280px, 40vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: none;
+    scrollbar-width: thin;
+  }
+  .combo-menu::-webkit-scrollbar { width: 8px; }
+  .combo-menu::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 4px;
+  }
+  .combo-menu.open { display: block; }
+  .combo-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .combo-item.selected {
+    background: var(--color-action-soft);
+    color: var(--color-action);
+    font-weight: 600;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .combo-item:hover {
+      background: var(--color-action-soft);
+      color: var(--color-action);
+    }
+  }
+  .combo-item:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: -2px;
+  }
+  .combo-empty {
+    padding: var(--space-3);
+    font-size: var(--text-footnote);
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  /* Desktop: Filter sichtbar; Mobile-Button Filter versteckt */
+  @media (min-width: 901px) {
+    #btnToggleFilters { display: none; }
+  }
+
+  /* ===== Liste ===== */
+  .lib-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+  }
+  .lib-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+  .lib-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-footnote);
+  }
+  .lib-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--paper-sunken);
+    text-align: left;
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .lib-table th.sortable { cursor: pointer; user-select: none; }
+  .lib-table th.sortable .sort-ind {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    font-weight: 700;
+  }
+  .lib-table th.sortable.active .sort-ind { color: var(--color-action); }
+  .lib-table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    max-width: 14rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lib-table tr:last-child td { border-bottom: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .lib-table tbody tr:hover { background: var(--color-muted-soft); }
+  }
+  .cell-id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    max-width: 7rem !important;
+  }
+  .cell-title {
+    font-weight: 600;
+    font-size: var(--text-subhead);
+    max-width: 16rem !important;
+  }
+  .sym-btn {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--paper-sunken);
+    width: 40px;
+    height: 40px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--color-action);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: none;
+    padding: 0;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .sym-btn:hover { background: var(--color-action-soft); border-color: var(--color-action); }
+  }
+  .sym-btn:focus-visible { outline: 2px solid var(--color-action); outline-offset: 2px; }
+  .lib-empty {
+    padding: var(--space-7) var(--space-4);
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: var(--text-subhead);
+  }
+  .lib-cards { display: none; padding: var(--space-2); }
+  .lib-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    background: #fff;
+    margin-bottom: var(--space-2);
+    min-height: var(--touch-min);
+  }
+  .lib-card-body { flex: 1; min-width: 0; }
+  .lib-card-id {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lib-card-title {
+    font-weight: 600;
+    font-size: var(--text-subhead);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ===== Protokoll-Stil – ID-Fenster & Prompt-Modal Desktop ===== */
+  .protocol-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(38, 49, 63, 0.28);
+    z-index: 11990;
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .protocol-overlay.open { display: block; }
+
+  .protocol-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(420px, calc(100vw - 32px));
+    height: min(70vh, 560px);
+    max-height: min(70vh, 560px);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised), 0 12px 40px -12px rgba(38,49,63,.22);
+    z-index: 12000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .protocol-panel.open { display: flex; }
+  .protocol-panel.protocol-wide {
+    width: min(640px, calc(100vw - 32px));
+    height: min(78vh, 640px);
+    max-height: min(78vh, 640px);
+  }
+  .protocol-panel.protocol-auto {
+    height: auto;
+    max-height: min(70vh, 480px);
+  }
+
+  .protocol-head {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    flex: none;
+    min-height: 52px;
+    gap: var(--space-2);
+  }
+  .protocol-head h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-headline);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+    min-width: 0;
+    flex: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: min(50%, 14rem);
+  }
+  .protocol-head-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex: none;
+  }
+  .protocol-close {
+    appearance: none;
+    border: none;
+    background: var(--color-muted-soft);
+    color: var(--ink-soft);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex: none;
+    margin-left: auto;
+  }
+  .protocol-close:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .protocol-close:hover {
+      background: rgba(0,0,0,.1);
+      color: var(--ink);
+    }
+  }
+  .protocol-body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    scrollbar-width: thin;
+  }
+  .protocol-actions {
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--line);
+    flex: none;
+    background: var(--paper-sunken);
+  }
+  .protocol-actions .btn {
+    flex: 1;
+    max-width: none;
+  }
+
+  .prompt-pre {
+    margin: 0;
+    white-space: pre;
+    overflow: visible;
+    min-width: max-content;
+    font-family: var(--font-mono);
+    font-size: var(--text-footnote);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .prompt-pre.wrap-on {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+  }
+
+  .navi-scene {
+    text-align: center;
+    padding: var(--space-4) var(--space-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .navi-hint {
+    font-size: var(--text-subhead);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+  .navi-id {
+    font-family: var(--font-mono);
+    font-size: var(--text-title-3);
+    font-weight: 700;
+    color: var(--color-action);
+    letter-spacing: -0.02em;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-action-soft);
+    border-radius: var(--radius);
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-all;
+    position: relative;
+    z-index: 1;
+  }
+  .navi-sub {
+    font-size: var(--text-caption);
+    color: var(--ink-faint);
+    margin-top: var(--space-2);
+  }
+  .navi-explain {
+    font-size: var(--text-footnote);
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin-top: var(--space-4);
+    text-align: left;
+  }
+  .spark {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-warning);
+    pointer-events: none;
+    animation: spark-fly 0.9s ease-out forwards;
+  }
+  @keyframes spark-fly {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.2); }
+  }
+
+  /* ===== Sprache ===== */
+  .language-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(38, 49, 63, 0.28);
+    z-index: 11990;
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .language-overlay.open { display: block; }
+  .language-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(420px, calc(100vw - 32px));
+    height: min(70vh, 560px);
+    max-height: min(70vh, 560px);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised), 0 12px 40px -12px rgba(38,49,63,.22);
+    z-index: 12000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .language-panel.open { display: flex; }
+  .language-head {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    flex: none;
+    min-height: 52px;
+    gap: var(--space-2);
+  }
+  .language-head h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-headline);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+    min-width: 0;
+    flex: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: min(50%, 14rem);
+  }
+  .language-close {
+    appearance: none;
+    border: none;
+    background: var(--color-muted-soft);
+    color: var(--ink-soft);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex: none;
+    margin-left: auto;
+  }
+  .language-close:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .language-close:hover {
+      background: rgba(0,0,0,.1);
+      color: var(--ink);
+    }
+  }
+  .language-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    scrollbar-width: thin;
+  }
+  .language-empty {
+    padding: var(--space-5) var(--space-3);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: var(--text-subhead);
+    line-height: 1.45;
+  }
+  .language-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .language-item .lang-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .language-item .lang-check {
+    flex: none;
+    color: var(--color-success);
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 1.25em;
+    text-align: center;
+    opacity: 0;
+  }
+  .language-item.selected .lang-check { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .language-item:hover {
+      background: var(--color-action-soft);
+      color: var(--color-action);
+    }
+  }
+  .language-item:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: -2px;
+  }
+  .language-actions {
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--line);
+    flex: none;
+    background: var(--paper-sunken);
+  }
+  .language-actions input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0 var(--space-3);
+    font-family: inherit;
+    font-size: var(--text-subhead);
+    min-height: var(--touch-min);
+    background: #fff;
+    color: var(--ink);
+  }
+  .language-actions input[type="search"]:focus {
+    outline: 2px solid var(--color-action);
+    outline-offset: 0;
+    border-color: var(--color-action);
+  }
+
+  /* ===== Mobile Sheets (wie Baukasten: links Source, rechts Detail, unten Filter) ===== */
+  .mobile-sheet {
+    position: fixed;
+    z-index: 25;
+    background: var(--paper-raised);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .mobile-sheet.sheet-dormant {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .mobile-sheet.mobile-open {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  /* Prompt von links (wie XML-Code) */
+  #promptSheet {
+    transform: translateX(calc(-100% - 32px));
+    transition: transform 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: 4px 0 24px -8px rgba(38,49,63,.18);
+    border-right: 1px solid var(--line);
+  }
+  #promptSheet.mobile-open { transform: translateX(0); }
+
+  /* Metadaten von rechts (wie Detail-Editor) */
+  #metaSheet {
+    transform: translateX(calc(100% + 32px));
+    transition: transform 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: -4px 0 24px -8px rgba(38,49,63,.18);
+    border-left: 1px solid var(--line);
+  }
+  #metaSheet.mobile-open { transform: translateX(0); }
+
+  /* Filter von unten – gleiche Maße/Position wie Prompt-/Meta-Sheet, nur translateY */
+  #filterSheet {
+    transform: translateY(calc(100% + 32px));
+    transition: transform 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: 0 -4px 24px -8px rgba(38,49,63,.18);
+    border-top: 1px solid var(--line);
+    z-index: 30;
+  }
+  #filterSheet.mobile-open { transform: translateY(0); }
+
+  .sheet-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    flex: none;
+    min-height: 52px;
+  }
+  .sheet-head h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-headline);
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--space-3);
+    scrollbar-width: thin;
+  }
+  .sheet-actions {
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--line);
+    flex: none;
+    background: var(--paper-sunken);
+  }
+  .sheet-actions .btn { flex: 1; max-width: none; }
+
+  /* Filter-Felder im Bottom-Sheet: volle Breite, zeilenweise */
+  .filter-sheet-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .filter-sheet-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2) var(--space-3);
+    margin: 0;
+    font-size: var(--text-subhead);
+  }
+  .meta-grid dt {
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: var(--text-caption);
+  }
+  .meta-grid dd {
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Wenn Sheet offen: Liste oben wie Outline im Baukasten */
+  .lib-main.sheet-open .lib-scroll {
+    flex: none;
+    height: var(--mobile-list-h, 36%);
+    max-height: var(--mobile-list-h, 36%);
+    overflow-y: auto;
+  }
+
+  @media (max-width: 900px) {
+    .wrap { padding: var(--space-2); gap: var(--space-2); }
+    header.top {
+      gap: var(--space-2);
+      padding-bottom: var(--space-2);
+    }
+    header.top .title-block h1 { font-size: var(--text-title-3); }
+    .toolbar {
+      width: auto;
+      flex: 0 0 auto;
+      flex-wrap: nowrap;
+      margin-left: auto;
+    }
+    .toolbar-desktop { display: none; }
+    .toolbar-mobile {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--space-2);
+      align-items: center;
+    }
+    .lib-table-wrap { display: none; }
+    .lib-cards { display: block; }
+    /* Desktop-Filter im search-panel ausblenden; Filter über Bottom-Sheet */
+    .search-filters { display: none !important; }
+  }
+
+  @media (min-width: 901px) {
+    .mobile-sheet { display: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .lib-main.sheet-open .lib-scroll {
+      height: var(--mobile-list-h, 32%);
+      max-height: var(--mobile-list-h, 32%);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="title-block">
+      <h1>
+        <span class="mark" aria-hidden="true">
+          <picture>
+            <source type="image/webp" srcset="https://raw.githubusercontent.com/juristikde/design/main/website/icons/logo-24.webp 1x, https://raw.githubusercontent.com/juristikde/design/main/website/icons/logo-48.webp 2x">
+            <source type="image/png" srcset="https://raw.githubusercontent.com/juristikde/design/main/website/icons/logo-24.png 1x, https://raw.githubusercontent.com/juristikde/design/main/website/icons/logo-48.png 2x">
+            <img src="https://raw.githubusercontent.com/juristikde/design/main/website/icons/logo-24.png" width="24" height="24" alt="" decoding="async" loading="eager">
+          </picture>
+        </span>
+        <span class="title-text" data-i18n="library.title">Prompt Bibliothek</span>
+      </h1>
+    </div>
+    <div class="toolbar">
+      <div class="toolbar-desktop">
+        <button type="button" class="btn" id="btnLanguage" aria-haspopup="true" aria-expanded="false">Deutsch</button>
+        <button type="button" class="btn" id="btnGenId" data-i18n="library.genId">ID generieren</button>
+        <a class="btn" href="https://juristikde.github.io/xml-prompt-baukasten/" id="btnBackEditor" data-i18n="library.editor">Editor</a>
+      </div>
+      <div class="toolbar-mobile">
+        <div class="options-wrap" id="optionsWrap">
+          <button type="button" class="btn" id="btnOptions" aria-haspopup="true" aria-expanded="false" data-i18n="toolbar.options">Optionen</button>
+          <div class="options-menu" id="optionsMenu" role="menu">
+            <button type="button" class="opt-item" id="optLanguage" role="menuitem" data-i18n="toolbar.language">Sprache</button>
+            <button type="button" class="opt-item" id="optGenId" role="menuitem" data-i18n="library.genId">ID generieren</button>
+            <a class="opt-item" href="https://juristikde.github.io/xml-prompt-baukasten/" id="optEditor" role="menuitem" data-i18n="library.editor" style="text-decoration:none;display:block;box-sizing:border-box;">Editor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-panel">
+    <div class="search-row">
+      <input type="search" id="searchQ" data-i18n-placeholder="library.searchPlaceholder" placeholder="Suchen…" autocomplete="off" spellcheck="false" data-i18n-aria="library.searchAria" aria-label="Volltextsuche">
+      <button type="button" class="btn small" id="btnToggleFilters" aria-expanded="false" data-i18n="library.filter">Filter</button>
+    </div>
+    <!-- Desktop-Filter: Combo (Freitext + Dropdown) inkl. Sprache -->
+    <div class="search-filters" id="searchFilters">
+      <label><span data-i18n="library.lang">Sprache</span>
+        <div class="combo" data-combo="language" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterSprache" data-i18n-placeholder="library.phLang" placeholder="z. B. Deutsch…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.user">Anwender</span>
+        <div class="combo" data-combo="anwender" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterAnwender" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.goal">Zielsetzung</span>
+        <div class="combo" data-combo="zielsetzung" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterZiel" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.testedWith">Getestet mit</span>
+        <div class="combo" data-combo="getestetMit" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterModell" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.author">Autor</span>
+        <div class="combo" data-combo="autor" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterAutor" data-i18n-placeholder="library.phAuthor" placeholder="z. B. juristikde…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+    </div>
+    <div class="search-meta" id="searchMeta">0 Einträge</div>
+  </div>
+
+  <div class="lib-main" id="libMain">
+    <div class="lib-scroll" id="libScroll">
+      <div class="lib-table-wrap">
+        <table class="lib-table" aria-label="Prompt-Katalog">
+          <thead>
+            <tr>
+              <th scope="col" class="sortable" data-sort="id"><span data-i18n="library.id">ID</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="title"><span data-i18n="library.titleCol">Titel</span> <span class="sort-ind"></span></th>
+              <th scope="col" data-i18n="library.promptCol">Prompt</th>
+              <th scope="col" class="sortable" data-sort="language"><span data-i18n="library.lang">Sprache</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="anwender"><span data-i18n="library.user">Anwender</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="zielsetzung"><span data-i18n="library.goal">Zielsetzung</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="getestetMit"><span data-i18n="library.testedWith">Getestet mit</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="updatedAt"><span data-i18n="library.updated">Aktualisiert</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="autor"><span data-i18n="library.author">Autor</span> <span class="sort-ind"></span></th>
+            </tr>
+          </thead>
+          <tbody id="libTbody"></tbody>
+        </table>
+      </div>
+      <div class="lib-cards" id="libCards"></div>
+      <div class="lib-empty" id="libEmpty" hidden data-i18n="library.empty">Keine Treffer.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile: Prompt von links (wie XML-Code) -->
+<aside class="mobile-sheet sheet-dormant" id="promptSheet" aria-hidden="true">
+  <div class="sheet-head">
+    <h2 id="promptSheetTitle">Prompt</h2>
+    <div class="protocol-head-tools">
+      <button type="button" class="btn small" id="btnSheetWrap" aria-pressed="false" data-i18n="library.wrapOff">Umbruch aus</button>
+    </div>
+    <button type="button" class="protocol-close" id="btnPromptSheetClose" data-i18n-aria="library.close" aria-label="Schließen">×</button>
+  </div>
+  <div class="sheet-body">
+    <pre class="prompt-pre" id="promptSheetPre"></pre>
+  </div>
+  <div class="sheet-actions">
+    <button type="button" class="btn primary" id="btnCopyPromptSheet" data-i18n="library.copy">Kopieren</button>
+  </div>
+</aside>
+
+<!-- Mobile: Metadaten von rechts (wie Detail-Editor) – ohne „Prompt anzeigen“ -->
+<aside class="mobile-sheet sheet-dormant" id="metaSheet" aria-hidden="true">
+  <div class="sheet-head">
+    <h2 id="metaSheetTitle">Details</h2>
+    <button type="button" class="protocol-close" id="btnMetaSheetClose" data-i18n-aria="library.close" aria-label="Schließen">×</button>
+  </div>
+  <div class="sheet-body" id="metaSheetBody"></div>
+</aside>
+
+<!-- Mobile: Filter von unten -->
+<aside class="mobile-sheet sheet-dormant" id="filterSheet" aria-hidden="true">
+  <div class="sheet-head">
+    <h2 data-i18n="library.filter">Filter</h2>
+    <button type="button" class="protocol-close" id="btnFilterSheetClose" data-i18n-aria="library.close" aria-label="Schließen">×</button>
+  </div>
+  <div class="sheet-body">
+    <div class="filter-sheet-fields">
+      <label><span data-i18n="library.lang">Sprache</span>
+        <div class="combo" data-combo="language" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterSprache" data-i18n-placeholder="library.phLang" placeholder="z. B. Deutsch…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.user">Anwender</span>
+        <div class="combo" data-combo="anwender" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterAnwender" data-i18n-placeholder="library.phUser" placeholder="z. B. Entwickler…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.goal">Zielsetzung</span>
+        <div class="combo" data-combo="zielsetzung" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterZiel" data-i18n-placeholder="library.phGoal" placeholder="z. B. Code-Review…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.testedWith">Getestet mit</span>
+        <div class="combo" data-combo="getestetMit" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterModell" data-i18n-placeholder="library.phModel" placeholder="z. B. GPT-4o…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+      <label><span data-i18n="library.author">Autor</span>
+        <div class="combo" data-combo="autor" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterAutor" data-i18n-placeholder="library.phAuthor" placeholder="z. B. juristikde…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="sheet-actions">
+    <button type="button" class="btn primary" id="btnFilterApply" data-i18n="library.filterApply">Anwenden</button>
+    <button type="button" class="btn" id="btnFilterReset" data-i18n="library.filterReset">Zurücksetzen</button>
+  </div>
+</aside>
+
+<!-- Desktop: Prompt-Modal -->
+<div id="promptOverlay" class="protocol-overlay" hidden></div>
+<div id="promptModal" class="protocol-panel protocol-wide" role="dialog" aria-modal="true" aria-labelledby="promptModalTitle">
+  <div class="protocol-head">
+    <h2 id="promptModalTitle">Prompt</h2>
+    <div class="protocol-head-tools">
+      <button type="button" class="btn small" id="btnToggleWrap" aria-pressed="false" data-i18n="library.wrapOff" data-i18n-title="library.wrapTitle" title="Zeilenumbruch umschalten">Umbruch aus</button>
+    </div>
+    <button type="button" class="protocol-close" id="btnPromptClose" data-i18n-aria="library.close" aria-label="Schließen">×</button>
+  </div>
+  <div class="protocol-body">
+    <pre class="prompt-pre" id="promptPre"></pre>
+  </div>
+  <div class="protocol-actions">
+    <button type="button" class="btn primary" id="btnCopyPrompt" data-i18n="library.copy">Kopieren</button>
+  </div>
+</div>
+
+<!-- ID generieren – unverändert -->
+<div id="idOverlay" class="protocol-overlay" hidden></div>
+<div id="idModal" class="protocol-panel protocol-auto" role="dialog" aria-modal="true" aria-labelledby="idModalTitle">
+  <div class="protocol-head">
+    <h2 id="idModalTitle" data-i18n="library.newId">Neue ID</h2>
+    <button type="button" class="protocol-close" id="btnIdClose" data-i18n-aria="library.close" aria-label="Schließen">×</button>
+  </div>
+  <div class="protocol-body">
+    <div class="navi-scene" id="naviScene">
+      <div class="navi-hint" id="naviHint"></div>
+      <div class="navi-id" id="naviId">—</div>
+      <div class="navi-sub" data-i18n="library.idLabel">(Generierte ID)</div>
+      <p class="navi-explain" data-i18n="library.idExplain">Mit dieser ID kann ein Eintrag angelegt werden: Metadaten in prompts/index.json, Prompt-Text in prompts/&lt;id&gt;.json (Dateiname = ID). Beides per Pull Request vorschlagen.</p>
+    </div>
+  </div>
+  <div class="protocol-actions">
+    <button type="button" class="btn primary" id="btnCopyId" data-i18n="library.copyId">ID kopieren</button>
+    <button type="button" class="btn" id="btnRegenId" data-i18n="library.regenId">Neu generieren</button>
+  </div>
+</div>
+
+<div id="languageOverlay" class="language-overlay" hidden></div>
+<div id="languagePanel" class="language-panel" role="dialog" aria-labelledby="languageTitle" aria-modal="true">
+  <div class="language-head">
+    <h2 id="languageTitle" data-i18n="language.title">Sprache</h2>
+    <button type="button" class="language-close" id="btnLanguageClose" data-i18n-aria="language.close" aria-label="Sprachnenü schließen">×</button>
+  </div>
+  <div class="language-body" id="languageList" role="listbox"></div>
+  <div class="language-actions">
+    <input type="search" id="languageSearch" data-i18n-placeholder="language.searchPlaceholder" placeholder="Sprache suchen…" autocomplete="off" spellcheck="false" data-i18n-aria="language.searchAria" aria-label="Sprache suchen">
+  </div>
+</div>
+
+<script>
+(function(){
+  const PROMPTS_BASE = 'prompts/';
+  const LANG_BASE = 'lang/';
+  let currentLang = 'de';
+  let i18nDict = {};
+  let languageSearchQuery = '';
+  let allPrompts = [];
+  let filtered = [];
+  let activeEntry = null;
+  let generatedId = '';
+  let sortLevels = [{ key: 'updatedAt', dir: -1 }];
+  let promptLineWrap = false;
+  let openOptionsMenu = null;
+
+  const SHEET_MS = 280;
+  let activeSheet = null; /* 'prompt' | 'meta' | 'filter' | null */
+  let sheetTimer = null;
+  let listScrollTop = 0;
+  let listScrollFrozen = false;
+
+  const ADVERBEN = ["hoch","tief","niedrig","quer","schief","krumm","gerade","steil","flach","breit","schmal","lang","kurz","eng","weit","ober","unter","vorder","hinter","alt","neu","echt","falsch","wild","still","leer","voll","kalt","warm","hell","dunkel","staubig","steinig","neblig","golden","silbern","eisig","moosig","sumpfig","schatten","nebel","drachen","elfen","geist","knochen","frost","sturm","nord","ost","west","rund","spitz","stumpf","hohl","fest","locker","klar","dumpf","matt","blank","rau","kahl","karg","glatt","hart","weich","zart","flink","frei","rein","pur","rot","blau","grau","bleich","fahl","grimm","glimm","rasch","sacht","scharf","mild","derb","stark","schwach","zahm","starr","stumm","wund","wahr","glanz","kupfer","eisen","rost","asche","staub","harz","teer"];
+  const STRASSEN = ["weg","pfad","steig","gasse","allee","zeile","ring","platz","markt","ufer","damm","tor","furt","hain","kluft","garten","berg","tal","hof","wall","steg","hafen","dorf","feld","park","turm","zelt","lager","wacht","portal","strasse"];
+
+  const LANG_LABELS = {
+    de: 'Deutsch', en: 'English', fr: 'Français', es: 'Español',
+    it: 'Italiano', pt: 'Português', nl: 'Nederlands', pl: 'Polski',
+    ru: 'Русский', ja: '日本語', zh: '中文'
+  };
+
+  function t(de, key, vars){
+    if(typeof key === 'object' && key !== null && vars === undefined){
+      vars = key; key = de; de = null;
+    }
+    let cur = i18nDict;
+    if(typeof key === 'string' && key){
+      const parts = key.split('.');
+      for(let i = 0; i < parts.length; i++){
+        if(cur == null || typeof cur !== 'object'){ cur = undefined; break; }
+        cur = cur[parts[i]];
+      }
+    } else cur = undefined;
+    let s = (typeof cur === 'string') ? cur : null;
+    if(s == null) s = (typeof de === 'string' && de !== '') ? de : (typeof key === 'string' ? key : '');
+    if(vars && typeof vars === 'object'){
+      Object.keys(vars).forEach(k => {
+        s = s.replace(new RegExp('\\{' + k + '\\}', 'g'), String(vars[k]));
+      });
+    }
+    return s;
+  }
+
+  function applyI18nDom(root){
+    const scope = root || document;
+    scope.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(!key) return;
+      el.textContent = t(el.textContent, key);
+    });
+    scope.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(!key) return;
+      el.setAttribute('placeholder', t(el.getAttribute('placeholder') || '', key));
+    });
+    scope.querySelectorAll('[data-i18n-aria]').forEach(el => {
+      const key = el.getAttribute('data-i18n-aria');
+      if(!key) return;
+      el.setAttribute('aria-label', t(el.getAttribute('aria-label') || '', key));
+    });
+  }
+
+  function getAvailableLanguages(){
+    const map = (i18nDict && i18nDict.languages) || {};
+    return Object.keys(map).map(code => {
+      const entry = map[code] || {};
+      return { code, native: entry.native || code, local: entry.local || entry.native || code };
+    }).sort((a, b) => a.native.localeCompare(b.local, currentLang || 'de'));
+  }
+
+  function detectSystemLanguage(){
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'de';
+    return String(nav).slice(0, 2).toLowerCase() || 'de';
+  }
+
+  function currentLanguageNativeName(){
+    const hit = getAvailableLanguages().find(l => l.code === currentLang);
+    return (hit && hit.native) || currentLang.toUpperCase();
+  }
+
+  function updateLanguageButton(){
+    const name = currentLanguageNativeName();
+    const btn = document.getElementById('btnLanguage');
+    if(btn){ btn.textContent = name; btn.title = name; }
+    const opt = document.getElementById('optLanguage');
+    if(opt){
+      const base = t('Sprache', 'toolbar.language');
+      opt.textContent = base + (base ? ' · ' : '') + name;
+    }
+  }
+
+  async function loadLanguage(code){
+    const safe = (code || 'de').toLowerCase().slice(0, 2);
+    try{
+      const res = await fetch(LANG_BASE + safe + '.json', { cache: 'no-cache' });
+      if(!res.ok) throw new Error('missing');
+      const data = await res.json();
+      i18nDict = data || {};
+      currentLang = (data && data.meta && data.meta.code) ? data.meta.code : safe;
+    }catch(err){
+      if(safe !== 'de') return loadLanguage('de');
+      i18nDict = {};
+      currentLang = 'de';
+    }
+    document.documentElement.lang = currentLang;
+    if(i18nDict.library && i18nDict.library.documentTitle) document.title = i18nDict.library.documentTitle;
+    else document.title = t('Prompt Bibliothek', 'library.documentTitle');
+    applyI18nDom(document);
+    updateLanguageButton();
+    fillLanguageSelects();
+    applyFilter();
+    writeHashState();
+  }
+
+  function normalizeSearch(s){
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function fuzzyMatch(query, target){
+    const q = normalizeSearch(query).trim();
+    const tnorm = normalizeSearch(target);
+    if(!q) return true;
+    if(tnorm.indexOf(q) !== -1) return true;
+    let ti = 0;
+    for(let qi = 0; qi < q.length; qi++){
+      ti = tnorm.indexOf(q[qi], ti);
+      if(ti === -1) return false;
+      ti++;
+    }
+    return true;
+  }
+
+  function renderLanguageList(){
+    const list = document.getElementById('languageList');
+    if(!list) return;
+    list.innerHTML = '';
+    const all = getAvailableLanguages();
+    const filteredLangs = all.filter(l =>
+      fuzzyMatch(languageSearchQuery, l.native) ||
+      fuzzyMatch(languageSearchQuery, l.local) ||
+      fuzzyMatch(languageSearchQuery, l.code)
+    );
+    if(!filteredLangs.length){
+      const empty = document.createElement('div');
+      empty.className = 'language-empty';
+      empty.textContent = t('Keine Sprache gefunden.', 'language.empty');
+      list.appendChild(empty);
+      return;
+    }
+    filteredLangs.forEach(l => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'language-item' + (l.code === currentLang ? ' selected' : '');
+      btn.setAttribute('role', 'option');
+      const name = document.createElement('span');
+      name.className = 'lang-name';
+      name.textContent = l.native;
+      const check = document.createElement('span');
+      check.className = 'lang-check';
+      check.textContent = '✓';
+      btn.appendChild(name);
+      btn.appendChild(check);
+      btn.onclick = () => {
+        if(l.code === currentLang){ closeLanguagePanel(); return; }
+        loadLanguage(l.code).then(() => closeLanguagePanel());
+      };
+      list.appendChild(btn);
+    });
+  }
+
+  function openLanguagePanel(){
+    closeOptionsMenu();
+    languageSearchQuery = '';
+    const search = document.getElementById('languageSearch');
+    if(search) search.value = '';
+    renderLanguageList();
+    const panel = document.getElementById('languagePanel');
+    const overlay = document.getElementById('languageOverlay');
+    if(overlay){ overlay.hidden = false; overlay.classList.add('open'); }
+    if(panel) panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLanguagePanel(){
+    const panel = document.getElementById('languagePanel');
+    const overlay = document.getElementById('languageOverlay');
+    if(panel) panel.classList.remove('open');
+    if(overlay){ overlay.classList.remove('open'); overlay.hidden = true; }
+    if(!document.querySelector('.protocol-panel.open') && !activeSheet) document.body.style.overflow = '';
+  }
+
+  function parseHashParams(){
+    const hash = (location.hash || '').replace(/^#/, '');
+    const out = {};
+    hash.split('&').forEach(part => {
+      if(!part) return;
+      const i = part.indexOf('=');
+      if(i === -1) out[decodeURIComponent(part)] = '';
+      else out[decodeURIComponent(part.slice(0, i))] = decodeURIComponent(part.slice(i + 1));
+    });
+    return out;
+  }
+
+  /* Virtualisierung: ab Threshold; Puffer = listBufferScreens Sichtfenster oben+unten
+   * listVirtualThreshold: ganze Zahl 1…5000 (Default 40)
+   * listBufferScreens: ganze Zahl 1…8 (Default 2)
+   */
+  let listVirtualThreshold = 40;
+  let listBufferScreens = 2;
+  let listRowHDesktop = 48;
+  let listRowHMobile = 64;
+  let virtRange = { start: 0, end: 0 };
+
+  function clampIntParam(raw, min, max, fallback){
+    const n = parseInt(String(raw == null ? '' : raw).trim(), 10);
+    if(!Number.isFinite(n) || !Number.isInteger(n)) return fallback;
+    if(n < min || n > max) return fallback;
+    return n;
+  }
+
+  function writeHashState(){
+    const parts = [
+      'setLanguage=' + currentLang,
+      'promptLineWrap=' + (promptLineWrap ? 'true' : 'false'),
+      'listVirtualThreshold=' + listVirtualThreshold,
+      'listBufferScreens=' + listBufferScreens
+    ];
+    const next = '#' + parts.join('&');
+    if(location.hash !== next) history.replaceState(null, '', next);
+  }
+
+  function readWrapFromHash(){
+    const params = parseHashParams();
+    if(Object.prototype.hasOwnProperty.call(params, 'promptLineWrap')){
+      const v = params.promptLineWrap;
+      promptLineWrap = (v === 'true' || v === '1');
+    } else {
+      promptLineWrap = false;
+    }
+    if(Object.prototype.hasOwnProperty.call(params, 'listVirtualThreshold')){
+      listVirtualThreshold = clampIntParam(params.listVirtualThreshold, 1, 5000, 40);
+    }
+    if(Object.prototype.hasOwnProperty.call(params, 'listBufferScreens')){
+      listBufferScreens = clampIntParam(params.listBufferScreens, 1, 8, 2);
+    }
+  }
+
+  function applyPromptWrap(){
+    document.querySelectorAll('.prompt-pre').forEach(pre => {
+      pre.classList.toggle('wrap-on', promptLineWrap);
+    });
+    const labels = [
+      document.getElementById('btnToggleWrap'),
+      document.getElementById('btnSheetWrap')
+    ];
+    labels.forEach(btn => {
+      if(!btn) return;
+      btn.textContent = promptLineWrap
+        ? t('Umbruch an', 'library.wrapOn')
+        : t('Umbruch aus', 'library.wrapOff');
+      btn.setAttribute('aria-pressed', promptLineWrap ? 'true' : 'false');
+    });
+  }
+
+  function langLabel(code){
+    if(!code) return '—';
+    const c = String(code).toLowerCase();
+    return LANG_LABELS[c] || code;
+  }
+
+  function genAdresse(){
+    const a1 = ADVERBEN[Math.floor(Math.random()*ADVERBEN.length)];
+    let a2 = ADVERBEN[Math.floor(Math.random()*ADVERBEN.length)];
+    while(a2 === a1) a2 = ADVERBEN[Math.floor(Math.random()*ADVERBEN.length)];
+    const str = STRASSEN[Math.floor(Math.random()*STRASSEN.length)];
+    const nr = 1 + Math.floor(Math.random() * 9999);
+    const suffix = ['a','b','c','d','e','f'][Math.floor(Math.random()*6)];
+    return a1 + '-' + a2 + '-' + str + '-' + nr + '-' + suffix;
+  }
+
+  function truncateId(id){
+    if(!id) return '';
+    if(id.length <= 18) return id;
+    return id.slice(0, 8) + '…' + id.slice(-6);
+  }
+
+  function formatDate(iso){
+    if(!iso) return '—';
+    const p = String(iso).split('-');
+    if(p.length === 3) return p[2] + '.' + p[1] + '.' + p[0];
+    return iso;
+  }
+
+  function isMobile(){ return window.matchMedia('(max-width: 900px)').matches; }
+  function normalize(s){
+    return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  }
+
+  /* ===== Sheet-System (analog Baukasten) ===== */
+  const libMain = document.getElementById('libMain');
+  const libScroll = document.getElementById('libScroll');
+
+  function bindListScroll(){
+    if(!libScroll || libScroll._scrollBound) return;
+    libScroll._scrollBound = true;
+    libScroll.addEventListener('scroll', () => {
+      if(!listScrollFrozen) listScrollTop = libScroll.scrollTop;
+      onListScrollVirt();
+    }, {passive: true});
+  }
+
+  function restoreListScroll(){
+    if(libScroll) libScroll.scrollTop = listScrollTop;
+  }
+
+  function clearSheetTimer(){
+    if(sheetTimer){ clearTimeout(sheetTimer); sheetTimer = null; }
+  }
+
+  function sheetEl(side){
+    if(side === 'prompt') return document.getElementById('promptSheet');
+    if(side === 'meta') return document.getElementById('metaSheet');
+    if(side === 'filter') return document.getElementById('filterSheet');
+    return null;
+  }
+
+  function putSheetDormant(panel){
+    if(!panel) return;
+    panel.classList.remove('mobile-open');
+    panel.classList.add('sheet-dormant');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  function wakeSheet(panel){
+    if(!panel) return;
+    panel.classList.remove('sheet-dormant');
+    panel.setAttribute('aria-hidden', 'false');
+  }
+
+  function updateMobileSheetMetrics(){
+    if(!isMobile()) return;
+    const fraction = window.matchMedia('(max-width: 480px)').matches ? 0.32 : 0.36;
+    const mainRect = libMain.getBoundingClientRect();
+    if(mainRect.height < 40) return;
+    const listH = Math.max(80, Math.round(mainRect.height * fraction));
+    const top = Math.round(mainRect.top + listH);
+    const left = Math.round(mainRect.left);
+    const width = Math.round(mainRect.width);
+    const height = Math.max(80, Math.round(mainRect.bottom - top));
+    libMain.style.setProperty('--mobile-list-h', listH + 'px');
+
+    ['promptSheet', 'metaSheet', 'filterSheet'].forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.style.position = 'fixed';
+      el.style.top = top + 'px';
+      el.style.left = left + 'px';
+      el.style.width = width + 'px';
+      el.style.height = height + 'px';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      el.style.maxHeight = 'none';
+    });
+  }
+
+  function applySheetChrome(on){
+    bindListScroll();
+    if(on){
+      if(libScroll && !listScrollFrozen) listScrollTop = libScroll.scrollTop;
+      listScrollFrozen = true;
+      libMain.classList.add('sheet-open');
+      updateMobileSheetMetrics();
+      restoreListScroll();
+      requestAnimationFrame(() => {
+        restoreListScroll();
+        listScrollFrozen = false;
+      });
+    } else {
+      listScrollFrozen = true;
+      libMain.classList.remove('sheet-open');
+      restoreListScroll();
+      requestAnimationFrame(() => {
+        restoreListScroll();
+        listScrollFrozen = false;
+      });
+    }
+  }
+
+  function openSheet(side){
+    if(!isMobile()) return;
+    if(activeSheet === side) return;
+    bindListScroll();
+    if(libScroll && !listScrollFrozen) listScrollTop = libScroll.scrollTop;
+    if(activeSheet && activeSheet !== side){
+      closeSheet(true);
+    }
+    activeSheet = side;
+    const panel = sheetEl(side);
+    if(!panel) return;
+    clearSheetTimer();
+    updateMobileSheetMetrics();
+    applySheetChrome(false);
+    restoreListScroll();
+    wakeSheet(panel);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        panel.classList.add('mobile-open');
+      });
+    });
+    const done = (e) => {
+      if(e && e.target !== panel) return;
+      panel.removeEventListener('transitionend', done);
+      clearSheetTimer();
+      if(activeSheet === side){
+        /* Filter wie Prompt/Meta: Liste einklappt, Sheet gleiche Höhe/Position */
+        applySheetChrome(true);
+        restoreListScroll();
+      }
+    };
+    panel.addEventListener('transitionend', done);
+    sheetTimer = setTimeout(() => done(), SHEET_MS + 40);
+  }
+
+  function closeSheet(immediate){
+    bindListScroll();
+    if(libScroll && !listScrollFrozen) listScrollTop = libScroll.scrollTop;
+    if(!activeSheet){
+      putSheetDormant(document.getElementById('promptSheet'));
+      putSheetDormant(document.getElementById('metaSheet'));
+      putSheetDormant(document.getElementById('filterSheet'));
+      applySheetChrome(false);
+      restoreListScroll();
+      return;
+    }
+    const side = activeSheet;
+    const panel = sheetEl(side);
+    activeSheet = null;
+    clearSheetTimer();
+    applySheetChrome(false);
+    restoreListScroll();
+    if(immediate){
+      putSheetDormant(panel);
+      restoreListScroll();
+      return;
+    }
+    requestAnimationFrame(() => {
+      if(panel) panel.classList.remove('mobile-open');
+      restoreListScroll();
+    });
+    const done = (e) => {
+      if(e && e.target !== panel) return;
+      if(panel) panel.removeEventListener('transitionend', done);
+      clearSheetTimer();
+      putSheetDormant(panel);
+      restoreListScroll();
+    };
+    if(panel) panel.addEventListener('transitionend', done);
+    sheetTimer = setTimeout(() => done(), SHEET_MS + 40);
+  }
+
+  /** keywords aus index.json: "a, b, c" oder ["a","b"] → Array getrimmter Strings */
+  function parseKeywords(raw){
+    if(raw == null || raw === '') return [];
+    if(Array.isArray(raw)){
+      return raw.map(k => String(k || '').trim()).filter(Boolean);
+    }
+    return String(raw).split(',').map(k => k.trim()).filter(Boolean);
+  }
+
+  async function loadPrompts(){
+    let list = [];
+    try{
+      const res = await fetch(PROMPTS_BASE + 'index.json', { cache: 'no-cache' });
+      if(!res.ok) throw new Error('index');
+      const data = await res.json();
+      list = Array.isArray(data.prompts) ? data.prompts : (Array.isArray(data) ? data : []);
+    }catch(e){ list = []; }
+    allPrompts = list.filter(e => e && e.id).map(e => {
+      const keywords = parseKeywords(e.keywords != null ? e.keywords : e.schlagworte);
+      return {
+        id: String(e.id),
+        title: e.title || '',
+        symbol: e.symbol || '📄',
+        anwender: e.anwender || '',
+        zielsetzung: e.zielsetzung || '',
+        getestetMit: e.getestetMit || '',
+        updatedAt: e.updatedAt || '',
+        autor: e.autor || '',
+        language: String(e.language || e.sprache || '').toLowerCase(),
+        keywords,
+        prompt: null
+      };
+    });
+    fillLanguageSelects();
+    applyFilter();
+  }
+
+  async function fetchPromptBody(entry){
+    if(!entry || !entry.id) return '';
+    if(typeof entry.prompt === 'string' && entry.prompt.length) return entry.prompt;
+    try{
+      const res = await fetch(PROMPTS_BASE + encodeURIComponent(entry.id) + '.json', { cache: 'no-cache' });
+      if(!res.ok) throw new Error('missing');
+      const data = await res.json();
+      const body = (data && typeof data.prompt === 'string') ? data.prompt : '';
+      entry.prompt = body;
+      return body;
+    }catch(err){
+      entry.prompt = '';
+      return '';
+    }
+  }
+
+  function uniqueField(key){
+    const set = new Set();
+    allPrompts.forEach(p => { if(p[key]) set.add(String(p[key])); });
+    return Array.from(set).sort((a,b)=>a.localeCompare(b, currentLang || 'de'));
+  }
+
+  /* ===== Combo (Freitext + Dropdown + Top-3-Vorschläge) ===== */
+  let openComboEl = null;
+  let openComboMenu = null;
+  const comboMenus = new WeakMap();
+
+  function comboOptionsFor(field){
+    if(field === 'language'){
+      return uniqueField('language').map(code => ({
+        value: code,
+        label: langLabel(code)
+      }));
+    }
+    return uniqueField(field).map(v => ({ value: v, label: v }));
+  }
+
+  function filterComboOptions(field, query, limit){
+    const all = comboOptionsFor(field);
+    const q = normalize(query || '').trim();
+    let list;
+    if(!q) list = all.slice();
+    else {
+      list = all.filter(o =>
+        normalize(o.label).indexOf(q) !== -1 ||
+        normalize(o.value).indexOf(q) !== -1
+      );
+    }
+    if(limit && limit > 0) list = list.slice(0, limit);
+    return list;
+  }
+
+  function ensureComboMenu(combo){
+    let menu = comboMenus.get(combo);
+    if(menu && menu.parentNode) return menu;
+    menu = document.createElement('div');
+    menu.className = 'combo-menu';
+    menu.setAttribute('role', 'listbox');
+    document.body.appendChild(menu);
+    comboMenus.set(combo, menu);
+    return menu;
+  }
+
+  function positionComboMenu(combo, menu){
+    const row = combo.querySelector('.combo-row');
+    if(!row) return;
+    const r = row.getBoundingClientRect();
+    const gap = 4;
+    const preferredH = 280; /* ~8 Zeilen à 36px – Apple-üblich kompakt, dann scroll */
+    const spaceBelow = window.innerHeight - r.bottom - gap;
+    const spaceAbove = r.top - gap;
+    const placeBelow = spaceBelow >= Math.min(preferredH, 120) || spaceBelow >= spaceAbove;
+    menu.style.minWidth = Math.max(160, r.width) + 'px';
+    menu.style.left = Math.min(r.left, window.innerWidth - 180) + 'px';
+    if(placeBelow){
+      menu.style.top = (r.bottom + gap) + 'px';
+      menu.style.bottom = 'auto';
+      menu.style.maxHeight = Math.min(preferredH, Math.max(80, spaceBelow - 8)) + 'px';
+    } else {
+      menu.style.bottom = (window.innerHeight - r.top + gap) + 'px';
+      menu.style.top = 'auto';
+      menu.style.maxHeight = Math.min(preferredH, Math.max(80, spaceAbove - 8)) + 'px';
+    }
+  }
+
+  function closeComboMenus(){
+    if(openComboMenu){
+      openComboMenu.classList.remove('open');
+      openComboMenu.innerHTML = '';
+    }
+    openComboEl = null;
+    openComboMenu = null;
+  }
+
+  function renderComboMenu(combo, opts, limitMode){
+    const field = combo.getAttribute('data-combo');
+    const input = combo.querySelector('.combo-input');
+    const menu = ensureComboMenu(combo);
+    const q = input ? input.value : '';
+    /* limitMode: tippen → top 3; caret → alle */
+    const list = limitMode
+      ? filterComboOptions(field, q, 3)
+      : filterComboOptions(field, '', 0);
+    menu.innerHTML = '';
+    if(!list.length){
+      const empty = document.createElement('div');
+      empty.className = 'combo-empty';
+      empty.textContent = t('Keine Treffer.', 'library.empty');
+      menu.appendChild(empty);
+    } else {
+      const cur = normalize((input && input.value) || '');
+      list.forEach(o => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'combo-item' + (normalize(o.label) === cur || normalize(o.value) === cur ? ' selected' : '');
+        btn.setAttribute('role', 'option');
+        btn.textContent = o.label;
+        btn.onmousedown = e => e.preventDefault(); /* Fokus im Input behalten */
+        btn.onclick = () => {
+          if(input){
+            input.value = field === 'language' ? o.label : o.value;
+            input.dataset.code = field === 'language' ? o.value : '';
+          }
+          closeComboMenus();
+          if(combo.getAttribute('data-scope') === 'desk') applyFilter();
+        };
+        menu.appendChild(btn);
+      });
+    }
+    positionComboMenu(combo, menu);
+    menu.classList.add('open');
+    openComboEl = combo;
+    openComboMenu = menu;
+  }
+
+  function openComboFull(combo){
+    if(openComboEl === combo && openComboMenu && openComboMenu.classList.contains('open') && !openComboMenu._suggestMode){
+      closeComboMenus();
+      return;
+    }
+    renderComboMenu(combo, null, false);
+    if(openComboMenu) openComboMenu._suggestMode = false;
+  }
+
+  function openComboSuggest(combo){
+    const input = combo.querySelector('.combo-input');
+    const q = (input && input.value) || '';
+    if(!normalize(q).trim()){
+      closeComboMenus();
+      return;
+    }
+    const list = filterComboOptions(combo.getAttribute('data-combo'), q, 3);
+    if(!list.length){
+      closeComboMenus();
+      return;
+    }
+    renderComboMenu(combo, null, true);
+    if(openComboMenu) openComboMenu._suggestMode = true;
+  }
+
+  function bindCombos(){
+    document.querySelectorAll('.combo').forEach(combo => {
+      if(combo._bound) return;
+      combo._bound = true;
+      const input = combo.querySelector('.combo-input');
+      const caret = combo.querySelector('.combo-caret');
+      if(caret){
+        caret.onclick = e => {
+          e.preventDefault();
+          e.stopPropagation();
+          openComboFull(combo);
+          if(input) input.focus();
+        };
+      }
+      if(input){
+        input.addEventListener('input', () => {
+          if(combo.getAttribute('data-combo') === 'language'){
+            input.dataset.code = '';
+          }
+          openComboSuggest(combo);
+          if(combo.getAttribute('data-scope') === 'desk') applyFilter();
+        });
+        input.addEventListener('focus', () => {
+          if(normalize(input.value).trim()) openComboSuggest(combo);
+        });
+        input.addEventListener('keydown', e => {
+          if(e.key === 'Escape'){
+            closeComboMenus();
+          } else if(e.key === 'ArrowDown'){
+            e.preventDefault();
+            openComboFull(combo);
+          }
+        });
+      }
+    });
+  }
+
+  function fillLanguageSelects(){
+    /* Combos brauchen keine Options-Befüllung; uniqueField ist live */
+  }
+
+  function compareValues(a, b, key, dir){
+    let va = a[key], vb = b[key];
+    if(key === 'updatedAt'){
+      va = String(va || ''); vb = String(vb || '');
+      return va < vb ? -dir : va > vb ? dir : 0;
+    }
+    va = normalize(va); vb = normalize(vb);
+    if(va < vb) return -dir;
+    if(va > vb) return dir;
+    return 0;
+  }
+
+  function applySort(list){
+    const levels = sortLevels.length ? sortLevels : [{ key: 'updatedAt', dir: -1 }];
+    return list.slice().sort((a, b) => {
+      for(let i = 0; i < levels.length; i++){
+        const c = compareValues(a, b, levels[i].key, levels[i].dir);
+        if(c !== 0) return c;
+      }
+      return 0;
+    });
+  }
+
+  function freeMatch(fieldVal, query){
+    if(!query) return true;
+    return normalize(fieldVal).indexOf(normalize(query)) !== -1;
+  }
+
+  function languageFilterMatch(pLang, query){
+    if(!query) return true;
+    const q = normalize(query);
+    return normalize(pLang).indexOf(q) !== -1 ||
+      normalize(langLabel(pLang)).indexOf(q) !== -1;
+  }
+
+  /** Groß/klein egal; Teilstring ODER Fuzzy (Zeichenfolge in Reihenfolge) */
+  function textMatchesQuery(text, qNorm){
+    if(!qNorm) return true;
+    const n = normalize(text);
+    if(n.indexOf(qNorm) !== -1) return true;
+    return fuzzyMatch(qNorm, n);
+  }
+
+  function entryMatchesSearch(p, qNorm){
+    if(!qNorm) return true;
+    const fields = [
+      p.id, p.title, p.language, langLabel(p.language),
+      p.anwender, p.zielsetzung, p.getestetMit, p.autor, p.updatedAt
+    ];
+    if(p.keywords && p.keywords.length){
+      for(let i = 0; i < p.keywords.length; i++) fields.push(p.keywords[i]);
+      fields.push(p.keywords.join(' '));
+    }
+    for(let i = 0; i < fields.length; i++){
+      if(textMatchesQuery(fields[i], qNorm)) return true;
+    }
+    return false;
+  }
+
+  function applyFilter(){
+    const q = normalize(document.getElementById('searchQ').value);
+    /* Desktop-Felder als Quelle der Wahrheit; Mobile-Sheet spiegelt beim Öffnen */
+    const fs = document.getElementById('filterSprache').value.trim();
+    const fa = document.getElementById('filterAnwender').value.trim();
+    const fz = document.getElementById('filterZiel').value.trim();
+    const fm = document.getElementById('filterModell').value.trim();
+    const fu = document.getElementById('filterAutor').value.trim();
+
+    filtered = allPrompts.filter(p => {
+      if(!languageFilterMatch(p.language, fs)) return false;
+      if(!freeMatch(p.anwender, fa)) return false;
+      if(!freeMatch(p.zielsetzung, fz)) return false;
+      if(!freeMatch(p.getestetMit, fm)) return false;
+      if(!freeMatch(p.autor, fu)) return false;
+      return entryMatchesSearch(p, q);
+    });
+    filtered = applySort(filtered);
+    updateSortHeaders();
+    renderList();
+  }
+
+  function syncMobileFiltersFromDesktop(){
+    document.getElementById('mFilterSprache').value = document.getElementById('filterSprache').value;
+    document.getElementById('mFilterAnwender').value = document.getElementById('filterAnwender').value;
+    document.getElementById('mFilterZiel').value = document.getElementById('filterZiel').value;
+    document.getElementById('mFilterModell').value = document.getElementById('filterModell').value;
+    document.getElementById('mFilterAutor').value = document.getElementById('filterAutor').value;
+  }
+
+  function syncDesktopFromMobileFilters(){
+    document.getElementById('filterSprache').value = document.getElementById('mFilterSprache').value;
+    document.getElementById('filterAnwender').value = document.getElementById('mFilterAnwender').value;
+    document.getElementById('filterZiel').value = document.getElementById('mFilterZiel').value;
+    document.getElementById('filterModell').value = document.getElementById('mFilterModell').value;
+    document.getElementById('filterAutor').value = document.getElementById('mFilterAutor').value;
+  }
+
+  function toggleSort(key, additive){
+    if(!additive){
+      const existing = sortLevels.find(l => l.key === key);
+      if(sortLevels.length === 1 && existing) existing.dir *= -1;
+      else sortLevels = [{ key, dir: key === 'updatedAt' ? -1 : 1 }];
+    } else {
+      const idx = sortLevels.findIndex(l => l.key === key);
+      if(idx >= 0) sortLevels[idx].dir *= -1;
+      else sortLevels.push({ key, dir: key === 'updatedAt' ? -1 : 1 });
+    }
+    applyFilter();
+  }
+
+  function updateSortHeaders(){
+    document.querySelectorAll('.lib-table th.sortable').forEach(th => {
+      const key = th.getAttribute('data-sort');
+      const ind = th.querySelector('.sort-ind');
+      const lvl = sortLevels.findIndex(l => l.key === key);
+      th.classList.toggle('active', lvl >= 0);
+      if(!ind) return;
+      if(lvl < 0){ ind.textContent = ''; return; }
+      const arrow = sortLevels[lvl].dir > 0 ? '↑' : '↓';
+      ind.textContent = sortLevels.length > 1 ? (lvl + 1) + arrow : arrow;
+    });
+  }
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+  function buildTableRow(p){
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="cell-id" title="'+escAttr(p.id)+'">'+esc(truncateId(p.id))+'</td>'+
+      '<td class="cell-title" title="'+escAttr(p.title)+'">'+esc(p.title||'')+'</td>'+
+      '<td></td>'+
+      '<td title="'+escAttr(p.language)+'">'+esc(langLabel(p.language))+'</td>'+
+      '<td title="'+escAttr(p.anwender)+'">'+esc(p.anwender||'—')+'</td>'+
+      '<td title="'+escAttr(p.zielsetzung)+'">'+esc(p.zielsetzung||'—')+'</td>'+
+      '<td title="'+escAttr(p.getestetMit)+'">'+esc(p.getestetMit||'—')+'</td>'+
+      '<td>'+esc(formatDate(p.updatedAt))+'</td>'+
+      '<td title="'+escAttr(p.autor)+'">'+esc(p.autor||'—')+'</td>';
+    const sym = document.createElement('button');
+    sym.type = 'button';
+    sym.className = 'sym-btn';
+    sym.title = t('Prompt anzeigen', 'library.showPromptTitle');
+    sym.setAttribute('aria-label', t('Prompt anzeigen', 'library.showPromptTitle') + ': ' + (p.title||''));
+    sym.textContent = '>_';
+    sym.onclick = () => openPrompt(p);
+    tr.children[2].appendChild(sym);
+    return tr;
+  }
+
+  function buildCard(p){
+    const card = document.createElement('div');
+    card.className = 'lib-card';
+    const sym2 = document.createElement('button');
+    sym2.type = 'button';
+    sym2.className = 'sym-btn';
+    sym2.textContent = '>_';
+    sym2.setAttribute('aria-label', t('Prompt anzeigen', 'library.showPromptTitle') + ': ' + (p.title||''));
+    sym2.onclick = () => openPrompt(p);
+    const body = document.createElement('div');
+    body.className = 'lib-card-body';
+    body.innerHTML = '<div class="lib-card-id" title="'+escAttr(p.id)+'">'+esc(truncateId(p.id))+'</div>'+
+      '<div class="lib-card-title">'+esc(p.title||'')+'</div>';
+    /* Metadaten nur über „Mehr“ – kein Klick auf den Eintragstext */
+    const more = document.createElement('button');
+    more.type = 'button';
+    more.className = 'btn small';
+    more.textContent = t('Mehr', 'library.more');
+    more.onclick = () => openMeta(p);
+    card.appendChild(sym2);
+    card.appendChild(body);
+    card.appendChild(more);
+    return card;
+  }
+
+  function rowHeight(){
+    return isMobile() ? listRowHMobile : listRowHDesktop;
+  }
+
+  function computeVirtRange(){
+    const n = filtered.length;
+    if(n <= listVirtualThreshold){
+      return { start: 0, end: n };
+    }
+    const rh = rowHeight();
+    const viewH = libScroll ? libScroll.clientHeight : 400;
+    const scrollTop = libScroll ? libScroll.scrollTop : 0;
+    const visible = Math.max(1, Math.ceil(viewH / rh));
+    const buffer = Math.max(visible, Math.ceil(visible * listBufferScreens));
+    const start = Math.max(0, Math.floor(scrollTop / rh) - buffer);
+    const end = Math.min(n, Math.ceil((scrollTop + viewH) / rh) + buffer);
+    return { start, end };
+  }
+
+  function renderList(){
+    const tbody = document.getElementById('libTbody');
+    const cards = document.getElementById('libCards');
+    const empty = document.getElementById('libEmpty');
+    const n = filtered.length;
+    document.getElementById('searchMeta').textContent = n === 1
+      ? t('{n} Eintrag', 'library.entryOne', {n})
+      : t('{n} Einträge', 'library.entries', {n});
+
+    if(!n){
+      tbody.innerHTML = '';
+      cards.innerHTML = '';
+      empty.hidden = false;
+      virtRange = { start: 0, end: 0 };
+      return;
+    }
+    empty.hidden = true;
+    renderVirtualWindow(true);
+  }
+
+  function renderVirtualWindow(force){
+    const tbody = document.getElementById('libTbody');
+    const cards = document.getElementById('libCards');
+    const n = filtered.length;
+    if(!n) return;
+    const range = computeVirtRange();
+    if(!force && range.start === virtRange.start && range.end === virtRange.end) return;
+    virtRange = range;
+    const rh = rowHeight();
+    const useVirt = n > listVirtualThreshold;
+    const start = useVirt ? range.start : 0;
+    const end = useVirt ? range.end : n;
+    const padTop = useVirt ? start * rh : 0;
+    const padBot = useVirt ? Math.max(0, (n - end) * rh) : 0;
+
+    /* Desktop-Tabelle */
+    tbody.innerHTML = '';
+    if(useVirt && padTop > 0){
+      const spacerTop = document.createElement('tr');
+      spacerTop.className = 'virt-spacer';
+      spacerTop.innerHTML = '<td colspan="9" style="height:'+padTop+'px;padding:0;border:none;"></td>';
+      tbody.appendChild(spacerTop);
+    }
+    for(let i = start; i < end; i++){
+      tbody.appendChild(buildTableRow(filtered[i]));
+    }
+    if(useVirt && padBot > 0){
+      const spacerBot = document.createElement('tr');
+      spacerBot.className = 'virt-spacer';
+      spacerBot.innerHTML = '<td colspan="9" style="height:'+padBot+'px;padding:0;border:none;"></td>';
+      tbody.appendChild(spacerBot);
+    }
+
+    /* Mobile-Karten */
+    cards.innerHTML = '';
+    if(useVirt && padTop > 0){
+      const s = document.createElement('div');
+      s.style.height = padTop + 'px';
+      s.setAttribute('aria-hidden', 'true');
+      cards.appendChild(s);
+    }
+    for(let i = start; i < end; i++){
+      cards.appendChild(buildCard(filtered[i]));
+    }
+    if(useVirt && padBot > 0){
+      const s = document.createElement('div');
+      s.style.height = padBot + 'px';
+      s.setAttribute('aria-hidden', 'true');
+      cards.appendChild(s);
+    }
+  }
+
+  let virtScrollRaf = null;
+  function onListScrollVirt(){
+    if(virtScrollRaf) return;
+    virtScrollRaf = requestAnimationFrame(() => {
+      virtScrollRaf = null;
+      if(filtered.length > listVirtualThreshold) renderVirtualWindow(false);
+    });
+  }
+
+  function openModal(overlayId, panelId){
+    const o = document.getElementById(overlayId);
+    const panel = document.getElementById(panelId);
+    if(o){ o.hidden = false; o.classList.add('open'); }
+    if(panel) panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(overlayId, panelId){
+    const o = document.getElementById(overlayId);
+    const panel = document.getElementById(panelId);
+    if(o){ o.classList.remove('open'); o.hidden = true; }
+    if(panel) panel.classList.remove('open');
+    if(!document.querySelector('.protocol-panel.open') && !document.getElementById('languagePanel').classList.contains('open') && !activeSheet){
+      document.body.style.overflow = '';
+    }
+  }
+
+  async function openPrompt(entry){
+    if(isMobile()){
+      /* Toggle: bei erneutem Tippen auf Symbol → schließen (wie Filter) */
+      if(activeSheet === 'prompt' && activeEntry && entry && activeEntry.id === entry.id){
+        closeSheet(false);
+        return;
+      }
+      if(activeSheet === 'prompt'){
+        /* anderes Prompt: Inhalt tauschen, Sheet bleibt */
+      }
+      activeEntry = entry;
+      document.getElementById('promptSheetTitle').textContent = entry.title || 'Prompt';
+      const pre = document.getElementById('promptSheetPre');
+      pre.textContent = t('Lade…', 'library.loading');
+      applyPromptWrap();
+      if(activeSheet !== 'prompt') openSheet('prompt');
+      const body = await fetchPromptBody(entry);
+      if(activeEntry !== entry) return;
+      pre.textContent = body || t('Kein Prompt-Text gefunden (Datei prompts/{id}.json fehlt oder ist leer).', 'library.missingPrompt', {id: entry.id});
+    } else {
+      activeEntry = entry;
+      document.getElementById('promptModalTitle').textContent = entry.title || 'Prompt';
+      const pre = document.getElementById('promptPre');
+      pre.textContent = t('Lade…', 'library.loading');
+      openModal('promptOverlay', 'promptModal');
+      applyPromptWrap();
+      const body = await fetchPromptBody(entry);
+      if(activeEntry !== entry) return;
+      pre.textContent = body || t('Kein Prompt-Text gefunden (Datei prompts/{id}.json fehlt oder ist leer).', 'library.missingPrompt', {id: entry.id});
+    }
+  }
+
+  function openMeta(entry){
+    if(!isMobile()) return; /* Desktop: Metadaten in Tabelle sichtbar */
+    /* Toggle: Mehr erneut → schließen */
+    if(activeSheet === 'meta' && activeEntry && entry && activeEntry.id === entry.id){
+      closeSheet(false);
+      return;
+    }
+    activeEntry = entry;
+    document.getElementById('metaSheetTitle').textContent = entry.title || t('Details', 'library.details');
+    document.getElementById('metaSheetBody').innerHTML =
+      '<dl class="meta-grid">'+
+      '<dt>'+esc(t('ID', 'library.id'))+'</dt><dd title="'+escAttr(entry.id)+'">'+esc(entry.id)+'</dd>'+
+      '<dt>'+esc(t('Sprache', 'library.lang'))+'</dt><dd>'+esc(langLabel(entry.language))+'</dd>'+
+      '<dt>'+esc(t('Anwender', 'library.user'))+'</dt><dd>'+esc(entry.anwender||'—')+'</dd>'+
+      '<dt>'+esc(t('Zielsetzung', 'library.goal'))+'</dt><dd>'+esc(entry.zielsetzung||'—')+'</dd>'+
+      '<dt>'+esc(t('Getestet mit', 'library.testedWith'))+'</dt><dd>'+esc(entry.getestetMit||'—')+'</dd>'+
+      '<dt>'+esc(t('Aktualisiert', 'library.updated'))+'</dt><dd>'+esc(formatDate(entry.updatedAt))+'</dd>'+
+      '<dt>'+esc(t('Autor', 'library.author'))+'</dt><dd>'+esc(entry.autor||'—')+'</dd>'+
+      '</dl>';
+    if(activeSheet !== 'meta') openSheet('meta');
+  }
+
+  function openFilterSheet(){
+    if(!isMobile()) return;
+    syncMobileFiltersFromDesktop();
+    openSheet('filter');
+  }
+
+  function spawnSparks(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const scene = document.getElementById('naviScene');
+    for(let i = 0; i < 14; i++){
+      const sp = document.createElement('span');
+      sp.className = 'spark';
+      const angle = (Math.PI * 2 * i) / 14;
+      const dist = 40 + Math.random() * 50;
+      sp.style.left = '50%';
+      sp.style.top = '40%';
+      sp.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
+      sp.style.setProperty('--sy', Math.sin(angle) * dist + 'px');
+      sp.style.background = i % 2 ? 'var(--color-warning)' : 'var(--color-action)';
+      scene.appendChild(sp);
+      setTimeout(() => sp.remove(), 950);
+    }
+  }
+
+  function naviHints(){
+    const arr = i18nDict.library && Array.isArray(i18nDict.library.naviHints) ? i18nDict.library.naviHints : null;
+    return arr && arr.length ? arr : [
+      'In 500 Meter rechts abbiegen auf:',
+      'Gleich links halten, dann:',
+      'Ziel in Kürze:',
+      'Route neu berechnet. Ziel:',
+      'Abfahrt nehmen Richtung:'
+    ];
+  }
+
+  function showGeneratedId(){
+    generatedId = genAdresse();
+    const hints = naviHints();
+    document.getElementById('naviHint').textContent = hints[Math.floor(Math.random() * hints.length)];
+    document.getElementById('naviId').textContent = generatedId;
+    openModal('idOverlay', 'idModal');
+    requestAnimationFrame(spawnSparks);
+  }
+
+  async function copyText(text, btn){
+    try{
+      await navigator.clipboard.writeText(text);
+      if(btn){
+        const o = btn.textContent;
+        btn.textContent = t('✓ Kopiert', 'library.copied');
+        setTimeout(() => { btn.textContent = o; }, 1300);
+      }
+    }catch(_){
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  }
+
+  function positionMenu(anchor, menu){
+    const r = anchor.getBoundingClientRect();
+    menu.style.top = (r.bottom + 6) + 'px';
+    menu.style.left = Math.min(r.left, window.innerWidth - 240) + 'px';
+  }
+
+  function closeOptionsMenu(){
+    const menu = document.getElementById('optionsMenu');
+    const btn = document.getElementById('btnOptions');
+    if(menu) menu.classList.remove('open');
+    if(btn) btn.setAttribute('aria-expanded', 'false');
+    openOptionsMenu = null;
+  }
+
+  /* Events */
+  document.getElementById('searchQ').addEventListener('input', applyFilter);
+
+  document.getElementById('btnToggleFilters').onclick = function(){
+    if(isMobile()){
+      if(activeSheet === 'filter') closeSheet(false);
+      else openFilterSheet();
+    }
+  };
+
+  document.getElementById('btnFilterApply').onclick = () => {
+    closeComboMenus();
+    syncDesktopFromMobileFilters();
+    applyFilter();
+    closeSheet(false);
+  };
+  document.getElementById('btnFilterReset').onclick = () => {
+    closeComboMenus();
+    document.getElementById('mFilterSprache').value = '';
+    document.getElementById('mFilterAnwender').value = '';
+    document.getElementById('mFilterZiel').value = '';
+    document.getElementById('mFilterModell').value = '';
+    document.getElementById('mFilterAutor').value = '';
+    syncDesktopFromMobileFilters();
+    applyFilter();
+  };
+  document.getElementById('btnFilterSheetClose').onclick = () => { closeComboMenus(); closeSheet(false); };
+
+  document.addEventListener('click', e => {
+    if(openComboMenu && !e.target.closest('.combo') && !e.target.closest('.combo-menu')){
+      closeComboMenus();
+    }
+  });
+  window.addEventListener('scroll', () => { if(openComboMenu) closeComboMenus(); }, true);
+  window.addEventListener('resize', () => { if(openComboMenu) closeComboMenus(); });
+
+  document.getElementById('btnGenId').onclick = showGeneratedId;
+  document.getElementById('optGenId').onclick = e => { e.stopPropagation(); closeOptionsMenu(); showGeneratedId(); };
+  document.getElementById('btnRegenId').onclick = showGeneratedId;
+  document.getElementById('btnCopyId').onclick = function(){ copyText(generatedId, this); };
+  document.getElementById('btnIdClose').onclick = () => closeModal('idOverlay', 'idModal');
+  document.getElementById('idOverlay').onclick = () => closeModal('idOverlay', 'idModal');
+
+  document.getElementById('btnPromptClose').onclick = () => closeModal('promptOverlay', 'promptModal');
+  document.getElementById('btnToggleWrap').onclick = () => {
+    promptLineWrap = !promptLineWrap;
+    writeHashState();
+    applyPromptWrap();
+  };
+  document.getElementById('btnSheetWrap').onclick = () => {
+    promptLineWrap = !promptLineWrap;
+    writeHashState();
+    applyPromptWrap();
+  };
+  document.getElementById('promptOverlay').onclick = () => closeModal('promptOverlay', 'promptModal');
+  document.getElementById('btnCopyPrompt').onclick = function(){
+    if(activeEntry) copyText(activeEntry.prompt || '', this);
+  };
+  document.getElementById('btnCopyPromptSheet').onclick = function(){
+    if(activeEntry) copyText(activeEntry.prompt || '', this);
+  };
+  document.getElementById('btnPromptSheetClose').onclick = () => closeSheet(false);
+  document.getElementById('btnMetaSheetClose').onclick = () => closeSheet(false);
+
+  document.getElementById('btnLanguage').onclick = e => { e.stopPropagation(); openLanguagePanel(); };
+  document.getElementById('optLanguage').onclick = e => { e.stopPropagation(); closeOptionsMenu(); openLanguagePanel(); };
+  document.getElementById('btnLanguageClose').onclick = closeLanguagePanel;
+  document.getElementById('languageOverlay').onclick = closeLanguagePanel;
+  document.getElementById('languageSearch').addEventListener('input', e => {
+    languageSearchQuery = e.target.value || '';
+    renderLanguageList();
+  });
+
+  document.getElementById('btnOptions').onclick = e => {
+    e.stopPropagation();
+    const menu = document.getElementById('optionsMenu');
+    const btn = document.getElementById('btnOptions');
+    const isOpen = menu.classList.contains('open');
+    closeOptionsMenu();
+    if(!isOpen){
+      positionMenu(btn, menu);
+      menu.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      openOptionsMenu = menu;
+      updateLanguageButton();
+    }
+  };
+
+  document.addEventListener('click', e => {
+    if(openOptionsMenu && !e.target.closest('#btnOptions') && !e.target.closest('#optionsMenu')) closeOptionsMenu();
+  });
+
+  bindCombos();
+
+  document.querySelectorAll('.lib-table th.sortable').forEach(th => {
+    th.addEventListener('click', e => {
+      const key = th.getAttribute('data-sort');
+      if(!key) return;
+      toggleSort(key, e.shiftKey || e.metaKey || e.ctrlKey);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.key !== 'Escape') return;
+    if(openComboMenu){ closeComboMenus(); return; }
+    if(document.getElementById('languagePanel').classList.contains('open')) closeLanguagePanel();
+    else if(document.getElementById('promptModal').classList.contains('open')) closeModal('promptOverlay', 'promptModal');
+    else if(document.getElementById('idModal').classList.contains('open')) closeModal('idOverlay', 'idModal');
+    else if(activeSheet) closeSheet(false);
+    else closeOptionsMenu();
+  });
+
+  window.addEventListener('hashchange', () => {
+    const params = parseHashParams();
+    const next = params.setLanguage ? String(params.setLanguage).toLowerCase().slice(0, 2) : currentLang;
+    readWrapFromHash();
+    applyPromptWrap();
+    renderVirtualWindow(true);
+    if(next !== currentLang) loadLanguage(next).then(() => applyPromptWrap()).catch(() => {});
+    else writeHashState();
+  });
+
+  window.addEventListener('resize', () => {
+    if(!isMobile()){
+      closeSheet(true);
+      libMain.classList.remove('sheet-open');
+    } else if(activeSheet){
+      updateMobileSheetMetrics();
+    }
+  });
+
+  /* Start */
+  (function initLang(){
+    const params = parseHashParams();
+    if(params.setLanguage) currentLang = String(params.setLanguage).toLowerCase().slice(0, 2);
+    else currentLang = detectSystemLanguage();
+  })();
+  readWrapFromHash();
+  writeHashState();
+  applyPromptWrap();
+  bindListScroll();
+  if(isMobile()){
+    putSheetDormant(document.getElementById('promptSheet'));
+    putSheetDormant(document.getElementById('metaSheet'));
+    putSheetDormant(document.getElementById('filterSheet'));
+  }
+  loadLanguage(currentLang).then(() => { applyPromptWrap(); return loadPrompts(); }).catch(() => loadPrompts());
+})();
+</script>
+</body>
+</html>

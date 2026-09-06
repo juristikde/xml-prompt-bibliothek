@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "code": "ar",
+    "name": "العربية",
+    "dir": "rtl"
+  },
+  "app": {
+    "documentTitle": "مكتبة المطالبات",
+    "title": "مكتبة المطالبات"
+  },
+  "toolbar": {
+    "options": "خيارات",
+    "language": "اللغة"
+  },
+  "language": {
+    "title": "اللغة",
+    "close": "إغلاق قائمة اللغة",
+    "searchPlaceholder": "البحث عن لغة…",
+    "searchAria": "البحث عن لغة",
+    "empty": "لم يتم العثور على لغة.",
+    "selected": "محدد"
+  },
+  "library": {
+    "documentTitle": "مكتبة المطالبات",
+    "title": "مكتبة المطالبات",
+    "genId": "إنشاء معرّف",
+    "editor": "المحرر",
+    "searchPlaceholder": "بحث…",
+    "searchAria": "بحث نصي كامل",
+    "filter": "عوامل التصفية",
+    "filterOff": "إخفاء عوامل التصفية",
+    "filterAll": "الكل",
+    "lang": "اللغة",
+    "user": "المستخدم المستهدف",
+    "goal": "الهدف",
+    "testedWith": "اختُبر مع",
+    "author": "المؤلف",
+    "updated": "آخر تحديث",
+    "id": "المعرّف",
+    "promptCol": "المطالبة",
+    "titleCol": "العنوان",
+    "entries": "{n} إدخالات",
+    "entryOne": "{n} إدخال",
+    "empty": "لا نتائج.",
+    "more": "المزيد",
+    "details": "التفاصيل",
+    "showPrompt": "عرض المطالبة",
+    "showPromptTitle": "عرض المطالبة",
+    "copy": "نسخ",
+    "copied": "✓ تم النسخ",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل…",
+    "missingPrompt": "لم يُعثر على نص المطالبة (الملف prompts/{id}.json مفقود أو فارغ).",
+    "newId": "معرّف جديد",
+    "copyId": "نسخ المعرّف",
+    "regenId": "إنشاء من جديد",
+    "idLabel": "(معرّف مُنشأ)",
+    "idExplain": "يمكن استخدام هذا المعرّف لإنشاء إدخال: البيانات الوصفية في prompts/index.json ونص المطالبة في prompts/<id>.json (اسم الملف = المعرّف). يمكن اقتراح كليهما عبر طلب سحب.",
+    "naviHints": [
+      "بعد 500 متر انعطف يمينًا إلى:",
+      "الزم اليسار ثم:",
+      "الوجهة قريبًا:",
+      "أُعيد حساب المسار. الوجهة:",
+      "خذ المخرج باتجاه:"
+    ],
+    "wrapOn": "التفاف مفعّل",
+    "wrapOff": "التفاف معطّل",
+    "wrapTitle": "تبديل التفاف الأسطر",
+    "filterReset": "إعادة تعيين",
+    "filterApply": "تطبيق",
+    "phLang": "مثلًا العربية…",
+    "phUser": "مثلًا مطوّر…",
+    "phGoal": "مثلًا مراجعة الشيفرة…",
+    "phModel": "مثلًا GPT-4o…",
+    "phAuthor": "مثلًا juristikde…"
+  },
+  "languages": {
+    "ar": {
+      "native": "العربية",
+      "local": "Arabic"
+    },
+    "bg": {
+      "native": "Български (Bulgarian)",
+      "local": "Bulgarian"
+    },
+    "bs": {
+      "native": "Bosanski (Bosnian)",
+      "local": "Bosnian"
+    },
+    "cs": {
+      "native": "Čeština (Czech)",
+      "local": "Czech"
+    },
+    "da": {
+      "native": "Dansk (Danish)",
+      "local": "Danish"
+    },
+    "de": {
+      "native": "Deutsch (German)",
+      "local": "German"
+    },
+    "el": {
+      "native": "Ελληνικά (Greek)",
+      "local": "Greek"
+    },
+    "en": {
+      "native": "English (English)",
+      "local": "English"
+    },
+    "es": {
+      "native": "Español (Spanish)",
+      "local": "Spanish"
+    },
+    "et": {
+      "native": "Eesti (Estonian)",
+      "local": "Estonian"
+    },
+    "fi": {
+      "native": "Suomi (Finnish)",
+      "local": "Finnish"
+    },
+    "fr": {
+      "native": "Français (French)",
+      "local": "French"
+    },
+    "ga": {
+      "native": "Gaeilge (Irish)",
+      "local": "Irish"
+    },
+    "hi": {
+      "native": "हिन्दी (Hindi)",
+      "local": "Hindi"
+    },
+    "hr": {
+      "native": "Hrvatski (Croatian)",
+      "local": "Croatian"
+    },
+    "hu": {
+      "native": "Magyar (Hungarian)",
+      "local": "Hungarian"
+    },
+    "it": {
+      "native": "Italiano (Italian)",
+      "local": "Italian"
+    },
+    "ja": {
+      "native": "日本語 (Japanese)",
+      "local": "Japanese"
+    },
+    "ka": {
+      "native": "ქართული (Georgian)",
+      "local": "Georgian"
+    },
+    "ko": {
+      "native": "한국어 (Korean)",
+      "local": "Korean"
+    },
+    "lt": {
+      "native": "Lietuvių (Lithuanian)",
+      "local": "Lithuanian"
+    },
+    "lv": {
+      "native": "Latviešu (Latvian)",
+      "local": "Latvian"
+    },
+    "mk": {
+      "native": "Македонски (Macedonian)",
+      "local": "Macedonian"
+    },
+    "mo": {
+      "native": "Moldovenească (Moldovan)",
+      "local": "Moldovan"
+    },
+    "mt": {
+      "native": "Malti (Maltese)",
+      "local": "Maltese"
+    },
+    "nl": {
+      "native": "Nederlands (Dutch)",
+      "local": "Dutch"
+    },
+    "pl": {
+      "native": "Polski (Polish)",
+      "local": "Polish"
+    },
+    "pt": {
+      "native": "Português (Portuguese)",
+      "local": "Portuguese"
+    },
+    "ro": {
+      "native": "Română (Romanian)",
+      "local": "Romanian"
+    },
+    "ru": {
+      "native": "Русский (Russian)",
+      "local": "Russian"
+    },
+    "sk": {
+      "native": "Slovenčina (Slovak)",
+      "local": "Slovak"
+    },
+    "sl": {
+      "native": "Slovenščina (Slovenian)",
+      "local": "Slovenian"
+    },
+    "sq": {
+      "native": "Shqip (Albanian)",
+      "local": "Albanian"
+    },
+    "sr": {
+      "native": "Српски (Serbian)",
+      "local": "Serbian"
+    },
+    "sv": {
+      "native": "Svenska (Swedish)",
+      "local": "Swedish"
+    },
+    "tr": {
+      "native": "Türkçe (Turkish)",
+      "local": "Turkish"
+    },
+    "uk": {
+      "native": "Українська (Ukrainian)",
+      "local": "Ukrainian"
+    },
+    "zh": {
+      "native": "中文 (Chinese)",
+      "local": "Chinese"
+    }
+  },
+  "source": {
+    "wrapOn": "التفاف مفعّل",
+    "wrapOff": "التفاف معطّل",
+    "wrapTitle": "تبديل التفاف الأسطر"
+  }
+}

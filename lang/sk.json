@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "code": "sk",
+    "name": "Slovenčina",
+    "dir": "ltr"
+  },
+  "app": {
+    "documentTitle": "Prompt Library",
+    "title": "Prompt Library"
+  },
+  "toolbar": {
+    "options": "Options",
+    "language": "Language"
+  },
+  "language": {
+    "title": "Language",
+    "close": "Close language menu",
+    "searchPlaceholder": "Search language…",
+    "searchAria": "Search language",
+    "empty": "No language found.",
+    "selected": "Selected"
+  },
+  "library": {
+    "documentTitle": "Prompt Library",
+    "title": "Prompt Library",
+    "genId": "Generate ID",
+    "editor": "Editor",
+    "searchPlaceholder": "Search…",
+    "searchAria": "Full-text search",
+    "filter": "Filters",
+    "filterOff": "Hide filters",
+    "filterAll": "All",
+    "lang": "Language",
+    "user": "Intended user",
+    "goal": "Purpose",
+    "testedWith": "Tested with",
+    "author": "Author",
+    "updated": "Updated",
+    "id": "ID",
+    "promptCol": "Prompt",
+    "titleCol": "Title",
+    "entries": "{n} entries",
+    "entryOne": "{n} entry",
+    "empty": "No results.",
+    "more": "More",
+    "details": "Details",
+    "showPrompt": "Show prompt",
+    "showPromptTitle": "Show prompt",
+    "copy": "Copy",
+    "copied": "✓ Copied",
+    "close": "Close",
+    "loading": "Loading…",
+    "missingPrompt": "No prompt text found (file prompts/{id}.json missing or empty).",
+    "newId": "New ID",
+    "copyId": "Copy ID",
+    "regenId": "Generate again",
+    "idLabel": "(Generated ID)",
+    "idExplain": "This ID can be used to create an entry: metadata in prompts/index.json, prompt text in prompts/<id>.json (filename = ID). Both can be proposed via pull request.",
+    "naviHints": [
+      "In 500 meters turn right onto:",
+      "Keep left, then:",
+      "Destination shortly:",
+      "Route recalculated. Destination:",
+      "Take exit toward:"
+    ],
+    "wrapOn": "Wrap on",
+    "wrapOff": "Wrap off",
+    "wrapTitle": "Toggle line wrap",
+    "filterReset": "Obnoviť",
+    "filterApply": "Použiť",
+    "phLang": "napr. Slovenčina…",
+    "phUser": "napr. Vývojár…",
+    "phGoal": "napr. Kontrola kódu…",
+    "phModel": "napr. GPT-4o…",
+    "phAuthor": "napr. juristikde…"
+  },
+  "languages": {
+    "ar": {
+      "native": "العربية (Arabic)",
+      "local": "Arabic"
+    },
+    "bg": {
+      "native": "Български (Bulgarian)",
+      "local": "Bulgarian"
+    },
+    "bs": {
+      "native": "Bosanski",
+      "local": "Bosnian"
+    },
+    "cs": {
+      "native": "Čeština",
+      "local": "Czech"
+    },
+    "da": {
+      "native": "Dansk",
+      "local": "Danish"
+    },
+    "de": {
+      "native": "Deutsch",
+      "local": "German"
+    },
+    "el": {
+      "native": "Ελληνικά (Greek)",
+      "local": "Greek"
+    },
+    "en": {
+      "native": "English",
+      "local": "English"
+    },
+    "es": {
+      "native": "Español",
+      "local": "Spanish"
+    },
+    "et": {
+      "native": "Eesti",
+      "local": "Estonian"
+    },
+    "fi": {
+      "native": "Suomi",
+      "local": "Finnish"
+    },
+    "fr": {
+      "native": "Français",
+      "local": "French"
+    },
+    "ga": {
+      "native": "Gaeilge",
+      "local": "Irish"
+    },
+    "hi": {
+      "native": "हिन्दी (Hindi)",
+      "local": "Hindi"
+    },
+    "hr": {
+      "native": "Hrvatski",
+      "local": "Croatian"
+    },
+    "hu": {
+      "native": "Magyar",
+      "local": "Hungarian"
+    },
+    "it": {
+      "native": "Italiano",
+      "local": "Italian"
+    },
+    "ja": {
+      "native": "日本語 (Japanese)",
+      "local": "Japanese"
+    },
+    "ka": {
+      "native": "ქართული (Georgian)",
+      "local": "Georgian"
+    },
+    "ko": {
+      "native": "한국어 (Korean)",
+      "local": "Korean"
+    },
+    "lt": {
+      "native": "Lietuvių",
+      "local": "Lithuanian"
+    },
+    "lv": {
+      "native": "Latviešu",
+      "local": "Latvian"
+    },
+    "mk": {
+      "native": "Македонски (Macedonian)",
+      "local": "Macedonian"
+    },
+    "mo": {
+      "native": "Moldovenească",
+      "local": "Moldovan"
+    },
+    "mt": {
+      "native": "Malti",
+      "local": "Maltese"
+    },
+    "nl": {
+      "native": "Nederlands",
+      "local": "Dutch"
+    },
+    "pl": {
+      "native": "Polski",
+      "local": "Polish"
+    },
+    "pt": {
+      "native": "Português",
+      "local": "Portuguese"
+    },
+    "ro": {
+      "native": "Română",
+      "local": "Romanian"
+    },
+    "ru": {
+      "native": "Русский (Russian)",
+      "local": "Russian"
+    },
+    "sk": {
+      "native": "Slovenčina",
+      "local": "Slovak"
+    },
+    "sl": {
+      "native": "Slovenščina",
+      "local": "Slovenian"
+    },
+    "sq": {
+      "native": "Shqip",
+      "local": "Albanian"
+    },
+    "sr": {
+      "native": "Српски (Serbian)",
+      "local": "Serbian"
+    },
+    "sv": {
+      "native": "Svenska",
+      "local": "Swedish"
+    },
+    "tr": {
+      "native": "Türkçe",
+      "local": "Turkish"
+    },
+    "uk": {
+      "native": "Українська (Ukrainian)",
+      "local": "Ukrainian"
+    },
+    "zh": {
+      "native": "中文 (Chinese)",
+      "local": "Chinese"
+    }
+  },
+  "source": {
+    "wrapOn": "Wrap on",
+    "wrapOff": "Wrap off",
+    "wrapTitle": "Toggle line wrap"
+  }
+}

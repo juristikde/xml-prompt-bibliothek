@@ -6,6 +6,7 @@
       "symbol": "⚙️",
       "audience": "KI-Assistent",
       "purpose": "Custom Instructions",
+      "outputFormat": "Text",
       "testedWith": "ChatGPT 4o",
       "updatedAt": "2026-03-12",
       "autor": "Prompt Baukasten",

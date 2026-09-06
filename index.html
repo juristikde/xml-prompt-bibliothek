@@ -801,8 +801,12 @@
     flex: none;
     background: var(--paper-sunken);
   }
-  .protocol-actions .btn {
+  .protocol-actions .btn,
+  .protocol-actions .btn:not(.icon-only):not(.block),
+  .sheet-actions .btn,
+  .sheet-actions .btn:not(.icon-only):not(.block) {
     flex: 1;
+    width: 100%;
     max-width: none;
   }
 
@@ -1285,6 +1289,17 @@
           </div>
         </div>
       </label>
+      <label><span data-i18n="library.outputFormat">Ausgabeformat</span>
+        <div class="combo" data-combo="outputFormat" data-scope="desk">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="filterOutputFormat" data-i18n-placeholder="library.phOutputFormat" placeholder="z. B. Text, PDF…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
       <label><span data-i18n="library.testedWith">Getestet mit</span>
         <div class="combo" data-combo="testedWith" data-scope="desk">
           <div class="combo-row">
@@ -1323,6 +1338,7 @@
               <th scope="col" class="sortable" data-sort="language"><span data-i18n="library.lang">Sprache</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="audience"><span data-i18n="library.user">Anwender</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="purpose"><span data-i18n="library.goal">Zielsetzung</span> <span class="sort-ind"></span></th>
+              <th scope="col" class="sortable" data-sort="outputFormat"><span data-i18n="library.outputFormat">Ausgabeformat</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="testedWith"><span data-i18n="library.testedWith">Getestet mit</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="updatedAt"><span data-i18n="library.updated">Aktualisiert</span> <span class="sort-ind"></span></th>
               <th scope="col" class="sortable" data-sort="autor"><span data-i18n="library.author">Autor</span> <span class="sort-ind"></span></th>
@@ -1350,7 +1366,7 @@
     <pre class="prompt-pre" id="promptSheetPre"></pre>
   </div>
   <div class="sheet-actions">
-    <button type="button" class="btn primary" id="btnCopyPromptSheet" data-i18n="library.copy">Kopieren</button>
+    <button type="button" class="btn primary block" id="btnCopyPromptSheet" data-i18n="library.copy">Kopieren</button>
   </div>
 </aside>
 
@@ -1404,6 +1420,17 @@
           </div>
         </div>
       </label>
+      <label><span data-i18n="library.outputFormat">Ausgabeformat</span>
+        <div class="combo" data-combo="outputFormat" data-scope="mob">
+          <div class="combo-row">
+            <input type="text" class="combo-input" id="mFilterOutputFormat" data-i18n-placeholder="library.phOutputFormat" placeholder="z. B. Text, PDF…" autocomplete="off" spellcheck="false">
+            <div class="combo-sep"></div>
+            <button type="button" class="combo-caret" aria-label="Liste öffnen" tabindex="-1">
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4.5L6 7.5L9 4.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </label>
       <label><span data-i18n="library.testedWith">Getestet mit</span>
         <div class="combo" data-combo="testedWith" data-scope="mob">
           <div class="combo-row">
@@ -1448,7 +1475,7 @@
     <pre class="prompt-pre" id="promptPre"></pre>
   </div>
   <div class="protocol-actions">
-    <button type="button" class="btn primary" id="btnCopyPrompt" data-i18n="library.copy">Kopieren</button>
+    <button type="button" class="btn primary block" id="btnCopyPrompt" data-i18n="library.copy">Kopieren</button>
   </div>
 </div>
 
@@ -1978,6 +2005,7 @@
         symbol: e.symbol || '📄',
         audience: e.audience || e.anwender || '',
         purpose: e.purpose || e.zielsetzung || '',
+        outputFormat: e.outputFormat || e.ausgabeformat || '',
         testedWith: e.testedWith || e.getestetMit || '',
         updatedAt: e.updatedAt || '',
         autor: e.autor || '',
@@ -2238,7 +2266,7 @@
     if(!qNorm) return true;
     const fields = [
       p.id, p.title, p.language, langLabel(p.language),
-      p.audience, p.purpose, p.testedWith, p.autor, p.updatedAt
+      p.audience, p.purpose, p.outputFormat, p.testedWith, p.autor, p.updatedAt
     ];
     if(p.keywords && p.keywords.length){
       for(let i = 0; i < p.keywords.length; i++) fields.push(p.keywords[i]);
@@ -2256,6 +2284,7 @@
     const fs = document.getElementById('filterSprache').value.trim();
     const fa = document.getElementById('filterAudience').value.trim();
     const fz = document.getElementById('filterPurpose').value.trim();
+    const fo = document.getElementById('filterOutputFormat').value.trim();
     const fm = document.getElementById('filterTestedWith').value.trim();
     const fu = document.getElementById('filterAutor').value.trim();
 
@@ -2263,6 +2292,7 @@
       if(!languageFilterMatch(p.language, fs)) return false;
       if(!freeMatch(p.audience, fa)) return false;
       if(!freeMatch(p.purpose, fz)) return false;
+      if(!freeMatch(p.outputFormat, fo)) return false;
       if(!freeMatch(p.testedWith, fm)) return false;
       if(!freeMatch(p.autor, fu)) return false;
       return entryMatchesSearch(p, q);
@@ -2276,6 +2306,7 @@
     document.getElementById('mFilterSprache').value = document.getElementById('filterSprache').value;
     document.getElementById('mFilterAudience').value = document.getElementById('filterAudience').value;
     document.getElementById('mFilterPurpose').value = document.getElementById('filterPurpose').value;
+    document.getElementById('mFilterOutputFormat').value = document.getElementById('filterOutputFormat').value;
     document.getElementById('mFilterTestedWith').value = document.getElementById('filterTestedWith').value;
     document.getElementById('mFilterAutor').value = document.getElementById('filterAutor').value;
   }
@@ -2284,6 +2315,7 @@
     document.getElementById('filterSprache').value = document.getElementById('mFilterSprache').value;
     document.getElementById('filterAudience').value = document.getElementById('mFilterAudience').value;
     document.getElementById('filterPurpose').value = document.getElementById('mFilterPurpose').value;
+    document.getElementById('filterOutputFormat').value = document.getElementById('mFilterOutputFormat').value;
     document.getElementById('filterTestedWith').value = document.getElementById('mFilterTestedWith').value;
     document.getElementById('filterAutor').value = document.getElementById('mFilterAutor').value;
   }
@@ -2326,6 +2358,7 @@
       '<td title="'+escAttr(p.language)+'">'+esc(langLabel(p.language))+'</td>'+
       '<td title="'+escAttr(p.audience)+'">'+esc(p.audience||'—')+'</td>'+
       '<td title="'+escAttr(p.purpose)+'">'+esc(p.purpose||'—')+'</td>'+
+      '<td title="'+escAttr(p.outputFormat)+'">'+esc(p.outputFormat||'—')+'</td>'+
       '<td title="'+escAttr(p.testedWith)+'">'+esc(p.testedWith||'—')+'</td>'+
       '<td>'+esc(formatDate(p.updatedAt))+'</td>'+
       '<td title="'+escAttr(p.autor)+'">'+esc(p.autor||'—')+'</td>';
@@ -2424,7 +2457,7 @@
     if(useVirt && padTop > 0){
       const spacerTop = document.createElement('tr');
       spacerTop.className = 'virt-spacer';
-      spacerTop.innerHTML = '<td colspan="9" style="height:'+padTop+'px;padding:0;border:none;"></td>';
+      spacerTop.innerHTML = '<td colspan="10" style="height:'+padTop+'px;padding:0;border:none;"></td>';
       tbody.appendChild(spacerTop);
     }
     for(let i = start; i < end; i++){
@@ -2433,7 +2466,7 @@
     if(useVirt && padBot > 0){
       const spacerBot = document.createElement('tr');
       spacerBot.className = 'virt-spacer';
-      spacerBot.innerHTML = '<td colspan="9" style="height:'+padBot+'px;padding:0;border:none;"></td>';
+      spacerBot.innerHTML = '<td colspan="10" style="height:'+padBot+'px;padding:0;border:none;"></td>';
       tbody.appendChild(spacerBot);
     }
 
@@ -2529,6 +2562,7 @@
       '<dt>'+esc(t('Sprache', 'library.lang'))+'</dt><dd>'+esc(langLabel(entry.language))+'</dd>'+
       '<dt>'+esc(t('Anwender', 'library.user'))+'</dt><dd>'+esc(entry.audience||'—')+'</dd>'+
       '<dt>'+esc(t('Zielsetzung', 'library.goal'))+'</dt><dd>'+esc(entry.purpose||'—')+'</dd>'+
+      '<dt>'+esc(t('Ausgabeformat', 'library.outputFormat'))+'</dt><dd>'+esc(entry.outputFormat||'—')+'</dd>'+
       '<dt>'+esc(t('Getestet mit', 'library.testedWith'))+'</dt><dd>'+esc(entry.testedWith||'—')+'</dd>'+
       '<dt>'+esc(t('Aktualisiert', 'library.updated'))+'</dt><dd>'+esc(formatDate(entry.updatedAt))+'</dd>'+
       '<dt>'+esc(t('Autor', 'library.author'))+'</dt><dd>'+esc(entry.autor||'—')+'</dd>'+
@@ -2653,6 +2687,7 @@
     document.getElementById('mFilterSprache').value = '';
     document.getElementById('mFilterAudience').value = '';
     document.getElementById('mFilterPurpose').value = '';
+    document.getElementById('mFilterOutputFormat').value = '';
     document.getElementById('mFilterTestedWith').value = '';
     document.getElementById('mFilterAutor').value = '';
     syncDesktopFromMobileFilters();
